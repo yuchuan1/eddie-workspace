@@ -27,9 +27,9 @@ export const MultipleSeries: Story = {
     chartData: {
       title: 'Multiple Series',
       series: [
-        { data: [10, 22, 35, 47, 53, 62] },
-        { data: [8, 18, 29, 41, 52, 60] },
-        { data: [12, 24, 34, 46, 58, 66] },
+        { name: 'Trend A', data: [10, 22, 35, 47, 53, 62] },
+        { name: 'Trend B', data: [8, 18, 29, 41, 52, 60] },
+        { name: 'Trend C', data: [12, 24, 34, 46, 58, 66] },
       ],
       xAxis: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
       yAxis: {},
@@ -57,8 +57,8 @@ export const LargeNumbers: Story = {
     chartData: {
       title: 'Large Numbers',
       series: [
-        { data: [100, 500, 1200, 3000, 5000, 8000, 13000] },
-        { data: [90, 480, 1100, 3200, 5200, 7800, 12500] },
+        { name: 'Q1-Q3', data: [100, 500, 1200, 3000, 5000, 8000, 13000] },
+        { name: 'Q4', data: [90, 480, 1100, 3200, 5200, 7800, 12500] },
       ],
       xAxis: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7'],
       yAxis: {},
