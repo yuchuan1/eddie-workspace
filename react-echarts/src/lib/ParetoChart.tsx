@@ -34,7 +34,7 @@ const ParetoChart: React.FC<{ chartData: ChartData; theme?: 'light' | 'dark' }> 
 
     return {
       title: defaultTitle(chartData.title || 'Pareto Chart'),
-      legend: { ...defaultLegend(chartData.series), top: '8%', left: 'center' },
+      ...(chartData.series.length > 1 ? { legend: { ...defaultLegend(chartData.series), top: '8%', left: 'center' } } : {}),
       grid: defaultGrid(chartData),
       tooltip: { trigger: 'axis' },
       series: seriesOption,

@@ -6,7 +6,7 @@ import { EChartsOption } from 'echarts';
 type ChartData = {
   title?: string;
   legend?: { data: string[] };
-  series: { data: number[]; name?: string }[];
+  series: { data: number[]; name?: string; markLine?: any }[];
   xAxis: string[] | object;
   yAxis: object;
 };
@@ -24,15 +24,22 @@ const HistogramChart: React.FC<{ chartData: ChartData; theme?: 'light' | 'dark' 
       return {};
     }
 
+    const multi = chartData.series.length > 1;
     const seriesOption = chartData.series.map((s) => ({
       type: 'bar' as const,
       name: s.name || 'Bin',
       data: s.data,
+      barCategoryGap: 0, // No gaps between bins for proper histogram
+      barWidth: multi ? '100%' : '100%', // Full width to eliminate gaps
+      ...(multi
+        ? { barGap: '-100%', itemStyle: { opacity: 0.45 } }
+        : {}),
+      ...(s.markLine ? { markLine: s.markLine } : {}),
     }));
 
     return {
       title: defaultTitle(chartData.title || 'Histogram'),
-      legend: { ...defaultLegend(chartData.series), top: '8%', left: 'center' },
+      ...(chartData.series.length > 1 ? { legend: { ...defaultLegend(chartData.series), top: '8%', left: 'center' } } : {}),
       grid: defaultGrid(chartData),
       tooltip: { trigger: 'axis' },
       series: seriesOption,
