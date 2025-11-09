@@ -4,6 +4,11 @@ import BarChart from './BarChart';
 const meta: Meta<typeof BarChart> = {
   component: BarChart,
   title: 'Charts/BarChart',
+  argTypes: {
+    orientation: {
+      control: { type: 'select', options: ['vertical', 'horizontal'] },
+    },
+  },
 };
 
 export default meta;
@@ -116,6 +121,19 @@ export const ComplexData: Story = {
         nameLocation: 'middle',
         nameGap: 45,
       },
+    },
+  },
+};
+
+// 8) Horizontal bar chart
+export const Horizontal: Story = {
+  args: {
+    orientation: 'horizontal',
+    chartData: {
+      title: 'Horizontal Bar',
+      series: [{ data: [10, 20, 30, 40, 50] }],
+      xAxis: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      yAxis: {},
     },
   },
 };
