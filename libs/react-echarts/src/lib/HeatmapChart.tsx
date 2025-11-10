@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import ReactECharts from 'echarts-for-react';
 import { EChartsOption } from 'echarts';
+import styles from './HeatmapChart.module.css';
 
 // Define types for heatmap chart data
 type ChartData = {
@@ -13,7 +14,7 @@ type ChartData = {
 // Migrated helper functions with types and logic from original heatmap-chart.ts
 const defaultTitle = (title: string) => ({ text: title, top: '1%' });
 const defaultGrid = (chartData: ChartData) => ({
-  left: '3%',
+  left: '15%',
   right: '4%',
   bottom: '3%',
   top: '15%',
@@ -42,9 +43,10 @@ const HeatmapChart: React.FC<{
         min: 0,
         max: 10,
         calculable: true,
-        orient: 'horizontal',
-        left: 'center',
-        bottom: '5%',
+        orient: 'vertical',
+        left: '5%',
+        bottom: '10%',
+        color: ['#ff4500', '#ff6b35', '#ff8c42', '#ffa366', '#ffba8c', '#ffd5b3'],
       },
       series: seriesOption,
       xAxis: Array.isArray(chartData.xAxis)
@@ -55,17 +57,11 @@ const HeatmapChart: React.FC<{
   }, [chartData]);
 
   return (
-    <div
-      style={{
-        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
-        padding: '10px',
-        borderRadius: '4px',
-      }}
-    >
+    <div className={theme === 'dark' ? styles.wrapperDark : styles.wrapperLight}>
       <ReactECharts
         option={option}
         theme={theme}
-        style={{ height: '400px' }}
+        className={styles.chart}
         notMerge={true}
         lazyUpdate={true}
       />
