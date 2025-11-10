@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@manufac/echarts-simple-transform':
+        specifier: ^2.0.11
+        version: 2.0.11
       echarts:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1179,6 +1182,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@manufac/echarts-simple-transform@2.0.11':
+    resolution: {integrity: sha512-MivAxT2gqkD3OH3vRXVi9UVWQZCKE8F9/NMiY1knEb1qDN7yNLjgcNF9hMDtJBLy/lWgvaIs6ZGM2jIBRazdaA==}
 
   '@mdx-js/react@3.1.1':
     resolution: {integrity: sha512-f++rKLQgUVYDAtECQ6fn/is15GkEH9+nZPM3MS0RcxVqoTfawHvDlSCH7JbMhAM6uJ32v3eXLvLmLvjGu7PTQw==}
@@ -7007,6 +7013,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@manufac/echarts-simple-transform@2.0.11':
+    dependencies:
+      tslib: 2.8.1
 
   '@mdx-js/react@3.1.1(@types/react@19.2.2)(react@19.2.0)':
     dependencies:
