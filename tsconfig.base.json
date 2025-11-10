@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@eddie-workspace/react-echarts": ["react-echarts/src/index.ts"]
+      "@eddie-workspace/react-echarts": ["libs/react-echarts/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

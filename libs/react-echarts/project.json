@@ -1,0 +1,24 @@
+{
+  "name": "react-echarts",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/react-echarts/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "configDir": "libs/react-echarts/.storybook",
+        "port": 6006
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{workspaceRoot}/dist/storybook/libs/react-echarts"],
+      "options": {
+        "configDir": "libs/react-echarts/.storybook",
+        "outputDir": "dist/storybook/libs/react-echarts"
+      }
+    }
+  }
+}

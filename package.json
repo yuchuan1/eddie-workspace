@@ -6,7 +6,8 @@
     "storybook": "nx storybook react-echarts",
     "test:affected": "nx affected:test",
     "test:react-echarts": "nx test react-echarts",
-    "coverage:react-echarts": "nx test react-echarts --coverage"
+    "coverage:react-echarts": "nx test react-echarts --coverage",
+    "lint:react-echarts": "nx lint react-echarts"
   },
   "private": true,
   "devDependencies": {
