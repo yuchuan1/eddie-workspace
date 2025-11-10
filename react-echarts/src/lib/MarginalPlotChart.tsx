@@ -34,7 +34,7 @@ const MarginalPlotChart: React.FC<MarginalPlotProps> = ({
   const option: EChartsOption = useMemo(() => {
     if (!chartData.dataset || chartData.dataset.length === 0) return {};
 
-    const source = chartData.dataset[0].source || [];
+    const source = chartData.dataset.flatMap((d) => d?.source ?? []);
     const xs = source.map((d) => d[0]);
     const ys = source.map((d) => d[1]);
     const n = source.length;
@@ -78,7 +78,7 @@ const MarginalPlotChart: React.FC<MarginalPlotProps> = ({
         { left: '78%', right: '5%', top: '28%', bottom: '15%', containLabel: true },
       ],
       axisPointer: linkPointer
-        ? { link: [{ xAxisIndex: [0, 1] }, { yAxisIndex: [0, 2] }], snap: true }
+        ? { link: [{ xAxisIndex: [0, 1] }, { yAxisIndex: [0, 2] }], snap: true, type: 'cross' }
         : undefined,
       xAxis: [
         { type: 'value', gridIndex: 0, min: xMin, max: xMax, splitLine: { show: true } },
@@ -91,11 +91,47 @@ const MarginalPlotChart: React.FC<MarginalPlotProps> = ({
         { type: 'category', gridIndex: 2, data: yHist.labels, axisLabel: { show: showMarginalLabels }, axisTick: { show: false }, axisLine: { show: false }, splitLine: { show: false } },
       ],
       series: [
-        { type: 'scatter', name: 'Scatter', xAxisIndex: 0, yAxisIndex: 0, data: source, symbolSize: 6, emphasis: { focus: 'series' } },
-        { type: 'bar', name: 'X Histogram', xAxisIndex: 1, yAxisIndex: 1, data: xHist.counts, barWidth: '99.3%', barCategoryGap: '0%', barGap: '0%', label: { show: false }, itemStyle: { color: colors?.xHist ?? (theme === 'dark' ? '#9AD533' : '#a7cc39') } },
-        { type: 'bar', name: 'Y Histogram', xAxisIndex: 2, yAxisIndex: 2, data: yHist.counts, barWidth: '99.3%', barCategoryGap: '0%', barGap: '0%', label: { show: false }, itemStyle: { color: colors?.yHist ?? (theme === 'dark' ? '#4C5473' : '#4c5473') } },
+        {
+          type: 'scatter',
+          name: 'Scatter',
+          xAxisIndex: 0,
+          yAxisIndex: 0,
+          data: source,
+          symbolSize: 6,
+          itemStyle: { opacity: 0.9 },
+          emphasis: { focus: 'self' },
+          blur: { itemStyle: { opacity: 0.25 } },
+        },
+        {
+          type: 'bar',
+          name: 'X Histogram',
+          xAxisIndex: 1,
+          yAxisIndex: 1,
+          data: xHist.counts,
+          barWidth: '99.3%',
+          barCategoryGap: '0%',
+          barGap: '0%',
+          label: { show: false },
+          itemStyle: { color: colors?.xHist ?? (theme === 'dark' ? '#9AD533' : '#a7cc39'), opacity: 0.9 },
+          emphasis: { focus: 'self' },
+          blur: { itemStyle: { opacity: 0.3 } },
+        },
+        {
+          type: 'bar',
+          name: 'Y Histogram',
+          xAxisIndex: 2,
+          yAxisIndex: 2,
+          data: yHist.counts,
+          barWidth: '99.3%',
+          barCategoryGap: '0%',
+          barGap: '0%',
+          label: { show: false },
+          itemStyle: { color: colors?.yHist ?? (theme === 'dark' ? '#4C5473' : '#4c5473'), opacity: 0.9 },
+          emphasis: { focus: 'self' },
+          blur: { itemStyle: { opacity: 0.3 } },
+        },
       ],
-      tooltip: { trigger: 'item' },
+      tooltip: { trigger: 'item', axisPointer: { type: 'shadow' } },
     } as EChartsOption;
   }, [chartData, theme, bins, normalize, linkPointer, showMarginalLabels, colors]);
 
