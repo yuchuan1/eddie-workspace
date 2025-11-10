@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "storybook": "nx storybook react-echarts",
-    "test:affected": "nx affected:test"
+    "test:affected": "nx affected:test",
+    "test:react-echarts": "nx test react-echarts",
+    "coverage:react-echarts": "nx test react-echarts --coverage"
   },
   "private": true,
   "devDependencies": {
@@ -29,6 +31,7 @@
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "@testing-library/dom": "10.4.0",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "16.3.0",
     "@types/node": "20.19.9",
     "@types/react": "^19.0.0",
