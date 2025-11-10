@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import PairwiseScatterGridChart from './PairwiseScatterGridChart';
 
 const meta: Meta<typeof PairwiseScatterGridChart> = {

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import HeatmapChart from './HeatmapChart';
 
 const meta: Meta<typeof HeatmapChart> = {
