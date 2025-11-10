@@ -42,4 +42,47 @@ describe('MarginalPlotChart', () => {
     const { container } = render(<MarginalPlotChart chartData={chartData} colors={colors} />);
     expect(container.firstChild).toBeTruthy();
   });
+
+  it('handles linkPointer disabled', () => {
+    const chartData = {
+      dataset: [{ source: [[10, 20], [15, 25]] as [number, number][] }],
+    };
+    const { container } = render(<MarginalPlotChart chartData={chartData} linkPointer={false} />);
+    expect(container.firstChild).toBeTruthy();
+  });
+
+  it('handles normalize prop', () => {
+    const chartData = {
+      dataset: [{ source: [[10, 20], [15, 25], [20, 30]] as [number, number][] }],
+    };
+    const { container } = render(<MarginalPlotChart chartData={chartData} normalize={true} />);
+    expect(container.firstChild).toBeTruthy();
+  });
+
+  it('handles custom height', () => {
+    const chartData = {
+      dataset: [{ source: [[10, 20]] as [number, number][] }],
+    };
+    const { container } = render(<MarginalPlotChart chartData={chartData} height={300} />);
+    expect(container.firstChild).toBeTruthy();
+  });
+
+  it('handles showMarginalLabels prop', () => {
+    const chartData = {
+      dataset: [{ source: [[10, 20], [15, 25]] as [number, number][] }],
+    };
+    const { container } = render(<MarginalPlotChart chartData={chartData} showMarginalLabels={true} />);
+    expect(container.firstChild).toBeTruthy();
+  });
+
+  it('handles multiple datasets', () => {
+    const chartData = {
+      dataset: [
+        { source: [[10, 20], [15, 25]] as [number, number][] },
+        { source: [[20, 30], [25, 35]] as [number, number][] },
+      ],
+    };
+    const { container } = render(<MarginalPlotChart chartData={chartData} />);
+    expect(container.firstChild).toBeTruthy();
+  });
 });

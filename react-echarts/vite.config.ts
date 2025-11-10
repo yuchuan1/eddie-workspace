@@ -56,6 +56,12 @@ export default defineConfig(() => ({
     coverage: {
       reportsDirectory: '../coverage/react-echarts',
       provider: 'v8' as const,
+      exclude: [
+        'src/**/*.stories.tsx',
+        'src/**/*.stories.ts',
+        '**/*.stories.tsx',
+        '**/*.stories.ts',
+      ],
     },
   },
 }));

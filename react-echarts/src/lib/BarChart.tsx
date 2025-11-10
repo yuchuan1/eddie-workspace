@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import ReactECharts from 'echarts-for-react';
 import { EChartsOption } from 'echarts';
+import styles from './BarChart.module.css';
 
 // Define types for bar chart data, based on migration from original bar-chart.ts
 type ChartData = {
@@ -51,8 +52,14 @@ const BarChart: React.FC<{ chartData: ChartData; theme?: 'light' | 'dark'; orien
   }, [chartData, orientation]);
 
   return (
-    <div style={{ backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff', padding: '10px', borderRadius: '4px' }}>
-      <ReactECharts option={option} theme={theme} style={{ height: '400px' }} notMerge={true} lazyUpdate={true} />
+    <div className={theme === 'dark' ? styles.wrapperDark : styles.wrapperLight}>
+      <ReactECharts
+        option={option}
+        theme={theme}
+        className={styles.chart}
+        notMerge={true}
+        lazyUpdate={true}
+      />
     </div>
   );
 };
