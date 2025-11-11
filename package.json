@@ -4,10 +4,11 @@
   "license": "MIT",
   "scripts": {
     "storybook": "nx storybook react-echarts",
+    "storybook:react-media-player": "nx storybook react-media-player",
     "test:affected": "nx affected:test",
-    "test:react-echarts": "nx test react-echarts",
-    "coverage:react-echarts": "nx test react-echarts --coverage",
-    "lint:react-echarts": "nx lint react-echarts"
+    "test:react-media-player": "nx test react-media-player",
+    "coverage:react-media-player": "nx test react-media-player --coverage",
+    "lint:react-media-player": "nx lint react-media-player"
   },
   "private": true,
   "devDependencies": {
@@ -42,6 +43,7 @@
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-storybook": "^10.0.6",
     "jiti": "2.6.1",
     "jsdom": "~27.1.0",
     "nx": "22.0.2",
@@ -52,15 +54,17 @@
     "typescript-eslint": "^8.40.0",
     "vite": "^7.0.0",
     "vite-plugin-dts": "~4.5.0",
-    "vitest": "^4.0.8",
-    "eslint-plugin-storybook": "^10.0.6"
+    "vitest": "^4.0.8"
   },
   "nx": {},
   "dependencies": {
     "@manufac/echarts-simple-transform": "^2.0.11",
     "echarts": "^6.0.0",
     "echarts-for-react": "^3.0.5",
+    "i18next": "^25.6.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-i18next": "^16.2.4",
+    "shaka-player": "^4.16.7"
   }
 }

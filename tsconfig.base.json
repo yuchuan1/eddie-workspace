@@ -4,18 +4,21 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@eddie-workspace/react-echarts": ["libs/react-echarts/src/index.ts"]
+      "@eddie-workspace/react-echarts": ["libs/react-echarts/src/index.ts"],
+      "@eddie-workspace/react-media-player": ["libs/react-media-player/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
