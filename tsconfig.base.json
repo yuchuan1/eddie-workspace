@@ -12,30 +12,19 @@
     "module": "esnext",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@eddie-workspace/react-echarts": [
-        "libs/react-echarts/src/index.ts"
-      ],
+      "@eddie-workspace/react-echarts": ["libs/react-echarts/src/index.ts"],
       "@eddie-workspace/react-media-player": [
         "libs/react-media-player/src/index.ts"
       ],
-      "@eddie-workspace/react-code-editor": [
-        "libs/src/index.ts"
-      ],
-      "@eddie-workspace/code-editor": [
-        "code-editor-temp/src/index.ts"
-      ]
+      "@eddie-workspace/react-code-editor": ["libs/src/index.ts"],
+      "@eddie-workspace/code-editor": ["code-editor-temp/src/index.ts"],
+      "@eddie-workspace/react-graphics-editor": ["libs/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
