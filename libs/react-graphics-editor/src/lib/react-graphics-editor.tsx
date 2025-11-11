@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as paper from 'paper';
 import { CommandManager, CreateShapeCommand, DeleteShapeCommand } from './commands';
 import { GraphicsWidgetPanel } from './widget-panel';
+import { GraphicsEditorService, type SelectionInfo } from './services';
 import styles from './react-graphics-editor.module.css';
 
 export interface ReactGraphicsEditorProps {
@@ -21,6 +22,12 @@ export function ReactGraphicsEditor({
   const isPaperInitializedRef = useRef(false);
   const [isPaperInitialized, setIsPaperInitialized] = useState(false);
   const [commandManager] = useState(() => new CommandManager());
+  const [editorService] = useState(() => new GraphicsEditorService({
+    width,
+    height,
+    backgroundColor,
+    showGrid,
+  }));
   const [selectedItems, setSelectedItems] = useState<paper.Item[]>([]);
 
   useEffect(() => {
@@ -34,74 +41,27 @@ export function ReactGraphicsEditor({
       return;
     }
 
-    // Initialize Paper.js
-    paper.setup(canvas);
-
-    // Set canvas background
-    paper.view.viewSize = new paper.Size(width, height);
-
-    // Create a background rectangle
-    const background = new paper.Path.Rectangle(new paper.Rectangle(0, 0, width, height));
-    background.fillColor = new paper.Color(backgroundColor);
-    background.sendToBack();
-
-    // Add grid if enabled
-    if (showGrid) {
-      const gridGroup = new paper.Group();
-      gridGroup.name = 'grid';
-
-      // Vertical lines
-      for (let x = 0; x <= width; x += 20) {
-        const line = new paper.Path.Line(
-          new paper.Point(x, 0),
-          new paper.Point(x, height)
-        );
-        line.strokeColor = new paper.Color('#e0e0e0');
-        line.strokeWidth = 1;
-        gridGroup.addChild(line);
-      }
-
-      // Horizontal lines
-      for (let y = 0; y <= height; y += 20) {
-        const line = new paper.Path.Line(
-          new paper.Point(0, y),
-          new paper.Point(width, y)
-        );
-        line.strokeColor = new paper.Color('#e0e0e0');
-        line.strokeWidth = 1;
-        gridGroup.addChild(line);
-      }
-    }
-
-    // Create a sample rectangle to demonstrate Paper.js
-    const sampleRect = new paper.Path.Rectangle(new paper.Rectangle(50, 50, 100, 100));
-    sampleRect.fillColor = new paper.Color('#3b82f6');
-    sampleRect.strokeColor = new paper.Color('#1e40af');
-    sampleRect.strokeWidth = 2;
-
-    // Create a sample circle
-    const sampleCircle = new paper.Path.Circle(new paper.Point(250, 100), 50);
-    sampleCircle.fillColor = new paper.Color('#ef4444');
-    sampleCircle.strokeColor = new paper.Color('#dc2626');
-    sampleCircle.strokeWidth = 2;
-
-    // Create sample text
-    const sampleText = new paper.PointText(new paper.Point(400, 100));
-    sampleText.content = 'Graphics Editor';
-    sampleText.fillColor = new paper.Color('#1f2937');
-    sampleText.fontSize = 16;
-    sampleText.fontFamily = 'Arial, sans-serif';
-
+    // Initialize canvas using the service
+    editorService.initializeCanvas(canvas);
     isPaperInitializedRef.current = true;
     setIsPaperInitialized(true);
 
+    // Set up service event handlers
+    editorService.setSelectionChangeHandler((selection: SelectionInfo) => {
+      setSelectedItems(selection.items);
+    });
+
+    editorService.setCanvasUpdateHandler(() => {
+      // Canvas has been updated
+    });
+
     // Cleanup function
     return () => {
-      paper.project.clear();
+      editorService.destroy();
       isPaperInitializedRef.current = false;
       setIsPaperInitialized(false);
     };
-  }, [width, height, backgroundColor, showGrid]);
+  }, [width, height, backgroundColor, showGrid, editorService]);
 
   const handleCanvasClick = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isPaperInitializedRef.current) return;
@@ -114,25 +74,15 @@ export function ReactGraphicsEditor({
     const y = event.clientY - rect.top;
     const point = new paper.Point(x, y);
 
-    // Find item at click position (excluding grid items)
-    const hitResult = paper.project.hitTest(point, {
-      fill: true,
-      stroke: true,
-      tolerance: 5,
-    });
+    // Use service to select item at point
+    const selectedItem = editorService.selectItemAt(point);
 
-    if (hitResult && hitResult.item) {
-      // Don't select grid items
-      if (hitResult.item.name !== 'grid') {
-        setSelectedItems([hitResult.item]);
-        console.log('Selected item:', hitResult.item.constructor.name);
-        return;
-      }
+    if (selectedItem) {
+      console.log('Selected item:', selectedItem.constructor.name);
+    } else {
+      console.log('Canvas clicked - no item selected');
     }
-
-    // Click on empty space - deselect all
-    setSelectedItems([]);
-  }, []);
+  }, [editorService]);
 
   const handleCreateRectangle = useCallback(() => {
     if (!isPaperInitialized) return;
@@ -178,16 +128,59 @@ export function ReactGraphicsEditor({
 
     const command = new DeleteShapeCommand(selectedItems);
     commandManager.execute(command);
-    setSelectedItems([]);
-  }, [selectedItems, commandManager]);
+    editorService.clearSelection();
+  }, [selectedItems, commandManager, editorService]);
 
   const handlePropertyChange = useCallback((item: paper.Item, property: string, value: unknown) => {
     // For now, just log the property change
     // In a full implementation, this could create a command for undo/redo
     console.log(`Property changed: ${property} =`, value);
-    // Trigger canvas update
-    paper.view.update();
-  }, []);
+
+    // Use service to update item properties
+    try {
+      switch (property) {
+        case 'position':
+          if (value instanceof paper.Point) {
+            editorService.updateItemPosition(item, value);
+          }
+          break;
+        case 'bounds':
+          if (value instanceof paper.Rectangle) {
+            editorService.updateItemSize(item, value);
+          }
+          break;
+        case 'fillColor':
+          if (value instanceof paper.Color) {
+            editorService.updateItemColor(item, 'fill', value);
+          }
+          break;
+        case 'strokeColor':
+          if (value instanceof paper.Color) {
+            editorService.updateItemColor(item, 'stroke', value);
+          }
+          break;
+        case 'strokeWidth':
+          if (typeof value === 'number') {
+            editorService.updateItemStrokeWidth(item, value);
+          }
+          break;
+        case 'content':
+          if (typeof value === 'string') {
+            editorService.updateTextContent(item, value);
+          }
+          break;
+        case 'fontSize':
+          if (typeof value === 'number') {
+            editorService.updateTextFontSize(item, value);
+          }
+          break;
+        default:
+          console.warn(`Unknown property: ${property}`);
+      }
+    } catch (error) {
+      console.error('Error updating property:', error);
+    }
+  }, [editorService]);
 
   // Keyboard shortcuts handler
   useEffect(() => {
