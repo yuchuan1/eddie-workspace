@@ -1,0 +1,20 @@
+{
+  "name": "react-code-editor",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/react-code-editor/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:feature"],
+  "// targets": "to see all targets run: nx show project react-code-editor --web",
+  "targets": {
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "config": "libs/react-code-editor/vite.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
