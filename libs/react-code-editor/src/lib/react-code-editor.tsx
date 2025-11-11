@@ -30,7 +30,7 @@ export function ReactCodeEditor({
   appendStderr,
 }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode);
-  const [showLibraryInfo, setShowLibraryInfo] = useState(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [showLibraryInfo, setShowLibraryInfo] = useState(false);
   const [stdout, setStdout] = useState('');
   const [stderr, setStderr] = useState('');
   const [executionStartTime, setExecutionStartTime] = useState<Date | null>(null);
@@ -62,6 +62,10 @@ export function ReactCodeEditor({
     setStderr('');
     setExecutionStartTime(null);
     setExecutionTime(null);
+  }, []);
+
+  const handleToggleLibraryInfo = useCallback(() => {
+    setShowLibraryInfo(prev => !prev);
   }, []);
 
   // Handle execution state changes (for Phase 3 integration)

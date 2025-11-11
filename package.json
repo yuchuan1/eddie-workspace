@@ -5,6 +5,7 @@
   "scripts": {
     "storybook:react-echarts": "nx storybook react-echarts",
     "storybook:react-media-player": "nx storybook react-media-player",
+    "storybook:react-code-editor": "nx storybook react-code-editor",
     "test": "nx run-many --target=test --exclude=@eddie-workspace/source",
     "test:affected": "nx affected:test",
     "test:react-echarts": "nx test react-echarts",
