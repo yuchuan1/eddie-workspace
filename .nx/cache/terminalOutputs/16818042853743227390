@@ -1,0 +1,78 @@
+> vitest
+
+[?25l
+[1m[46m RUN [49m[22m [36mv4.0.8 [39m[90m/Users/eddie/eddie/eddie-workspace/libs/react-media-player[39m
+
+[?2026h
+[1m[33m ❯ [39m[22m[30m[45m react-media-player [49m[39m src/lib/MediaPlayer.spec.tsx[2m [queued][22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m[1m[32m0 passed[39m[22m[90m (0)[39m
+[2m   Start at [22m08:28:53
+[2m   Duration [22m605ms
+[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K
+[1m[33m ❯ [39m[22m[30m[45m react-media-player [49m[39m src/lib/MediaPlayer.spec.tsx[2m [queued][22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m[1m[32m0 passed[39m[22m[90m (0)[39m
+[2m   Start at [22m08:28:53
+[2m   Duration [22m906ms
+[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[90mstderr[2m | src/lib/MediaPlayer.spec.tsx
+[22m[39mShaka Player initialization failed: Error: [vitest] No "polyfill" export is defined on the "shaka-player" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+
+    at VitestMocker.createError (file:///Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/vitest@4.0.8_@types+node@24.10.0_@vitest+ui@4.0.8_jiti@2.6.1_jsdom@27.1.0_terser@5.44.1_yaml@2.8.1/node_modules/[4mvitest[24m/dist/chunks/startModuleRunner.BOmUtLIO.js:307:17)
+    at Object.get (file:///Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/vitest@4.0.8_@types+node@24.10.0_@vitest+ui@4.0.8_jiti@2.6.1_jsdom@27.1.0_terser@5.44.1_yaml@2.8.1/node_modules/[4mvitest[24m/dist/chunks/startModuleRunner.BOmUtLIO.js:362:16)
+    at [90m/Users/eddie/eddie/eddie-workspace/libs/react-media-player/[39msrc/lib/MediaPlayer.tsx:178:19
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at [90m/Users/eddie/eddie/eddie-workspace/libs/react-media-player/[39msrc/lib/MediaPlayer.tsx:293:5 {
+  codeFrame: [32m'vi.mock(import("shaka-player"), async (importOriginal) => {\n'[39m +
+    [32m'  const actual = await importOriginal()\n'[39m +
+    [32m'  return {\n'[39m +
+    [32m'    ...actual,\n'[39m +
+    [32m'    // your mocked methods\n'[39m +
+    [32m'  }\n'[39m +
+    [32m'})'[39m
+}
+
+[90mstderr[2m | src/lib/MediaPlayer.spec.tsx
+[22m[39mShaka Player initialization failed: TypeError: this.target.addEventListener is not a function
+    at new lb (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:63:91)
+    at kb.p.D (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:61:761)
+    at lr (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:781:88)
+    at Fa.h (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:793:265)
+    at Ka (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:19:299)
+    at La.next (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:20:91)
+    at /Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:20:484
+    at new Promise (<anonymous>)
+    at Ma (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:20:377)
+    at Q (/Users/eddie/eddie/eddie-workspace/node_modules/[4m.pnpm[24m/shaka-player@4.16.8/node_modules/[4mshaka-player[24m/dist/shaka-player.compiled.js:21:22)
+
+
+[1m[33m ❯ [39m[22m[30m[45m react-media-player [49m[39m src/lib/MediaPlayer.spec.tsx[2m 1/12[22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m[1m[32m1 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m08:28:53
+[2m   Duration [22m1.21s
+[?2026l[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K [32m✓[39m [30m[45m react-media-player [49m[39m src/lib/MediaPlayer.spec.tsx [2m([22m[2m12 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+   [32m✓[39m MediaPlayer [2m(12)[22m
+     [32m✓[39m should render successfully[32m 18[2mms[22m[39m
+     [32m✓[39m should render video element[32m 8[2mms[22m[39m
+     [32m✓[39m should render video element with native controls when specified[32m 7[2mms[22m[39m
+     [32m✓[39m should not render video element with controls when shaka controls specified[32m 2[2mms[22m[39m
+     [32m✓[39m should apply theme classes[32m 2[2mms[22m[39m
+     [32m✓[39m should handle different source kinds[32m 2[2mms[22m[39m
+     [32m✓[39m should handle error callbacks[32m 3[2mms[22m[39m
+     [32m✓[39m should handle autoplay and muted props[32m 13[2mms[22m[39m
+     [32m✓[39m should handle theme variations[32m 2[2mms[22m[39m
+     [32m✓[39m should expose imperative API via ref[32m 2[2mms[22m[39m
+     [32m✓[39m should handle accessibility attributes[32m 2[2mms[22m[39m
+     [32m✓[39m should render screen reader announcements[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 08:28:53
+[2m   Duration [22m 1.23s[2m (transform 118ms, setup 0ms, collect 386ms, tests 63ms, environment 566ms, prepare 25ms)[22m
+
+[?25h

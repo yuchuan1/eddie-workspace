@@ -1,0 +1,983 @@
+{
+  "version": "6.0",
+  "nxVersion": "22.0.3",
+  "pathMappings": {
+    "@eddie-workspace/react-echarts": [
+      "libs/react-echarts/src/index.ts"
+    ],
+    "@eddie-workspace/react-media-player": [
+      "libs/react-media-player/src/index.ts"
+    ],
+    "@eddie-workspace/react-code-editor": [
+      "libs/src/index.ts"
+    ],
+    "@eddie-workspace/code-editor": [
+      "code-editor-temp/src/index.ts"
+    ],
+    "@eddie-workspace/react-graphics-editor": [
+      "libs/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    },
+    {
+      "name": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "devTargetName": "dev",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck",
+        "buildDepsTargetName": "build-deps",
+        "watchDepsTargetName": "watch-deps"
+      }
+    }
+  ],
+  "fileMap": {
+    "nonProjectFiles": [],
+    "projectFileMap": {
+      "react-echarts": [
+        {
+          "file": "libs/react-echarts/.babelrc",
+          "hash": "2946678488919325452"
+        },
+        {
+          "file": "libs/react-echarts/.storybook/main.ts",
+          "hash": "1511229156708478156",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/.storybook/preview.ts",
+          "hash": "4021360395888153812",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/README.md",
+          "hash": "10980771994464882162"
+        },
+        {
+          "file": "libs/react-echarts/echarts-migration-spec.md",
+          "hash": "4443341197728012636"
+        },
+        {
+          "file": "libs/react-echarts/eslint.config.mjs",
+          "hash": "7723811232929690167",
+          "deps": [
+            "npm:eslint-plugin-storybook",
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/package.json",
+          "hash": "10105353993299383906",
+          "deps": [
+            "npm:echarts",
+            "npm:echarts-for-react"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/project.json",
+          "hash": "14192210795965526071"
+        },
+        {
+          "file": "libs/react-echarts/src/index.ts",
+          "hash": "6840785629748217485"
+        },
+        {
+          "file": "libs/react-echarts/src/lib/AreaChart.stories.tsx",
+          "hash": "4932304693110919213",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/AreaChart.tsx",
+          "hash": "17180671893838387071",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/BarChart.module.css",
+          "hash": "3053635961910598987"
+        },
+        {
+          "file": "libs/react-echarts/src/lib/BarChart.spec.tsx",
+          "hash": "5846348706459955574",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/BarChart.stories.tsx",
+          "hash": "3495500895742500000",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/BarChart.tsx",
+          "hash": "512698213538407978",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/BoxPlotChart.stories.tsx",
+          "hash": "6321228428944260996",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/BoxPlotChart.tsx",
+          "hash": "9192359546766636389",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/HeatmapChart.module.css",
+          "hash": "1011131496107028160"
+        },
+        {
+          "file": "libs/react-echarts/src/lib/HeatmapChart.stories.tsx",
+          "hash": "18159240725552136416",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/HeatmapChart.tsx",
+          "hash": "15330606003488710444",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/HistogramChart.module.css",
+          "hash": "1011131496107028160"
+        },
+        {
+          "file": "libs/react-echarts/src/lib/HistogramChart.stories.tsx",
+          "hash": "12453023011647132881",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/HistogramChart.tsx",
+          "hash": "16333469299023638452",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/LineChart.module.css",
+          "hash": "3053635961910598987"
+        },
+        {
+          "file": "libs/react-echarts/src/lib/LineChart.spec.tsx",
+          "hash": "7773674724639001317",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/LineChart.stories.tsx",
+          "hash": "9820086013465720377",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/LineChart.tsx",
+          "hash": "8664091745454484741",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/MarginalPlotChart.module.css",
+          "hash": "13068745308078046568"
+        },
+        {
+          "file": "libs/react-echarts/src/lib/MarginalPlotChart.spec.tsx",
+          "hash": "15939138014704434498",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/MarginalPlotChart.stories.tsx",
+          "hash": "14251319516864405518",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/MarginalPlotChart.tsx",
+          "hash": "15900111760276449186",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/MatrixScatterChart.stories.tsx",
+          "hash": "13197467358277012505",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/PairwiseScatterGridChart.tsx",
+          "hash": "13701516553450224764",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ParetoChart.stories.tsx",
+          "hash": "16690507711668155716",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ParetoChart.tsx",
+          "hash": "11391134370534093015",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/PieChart.stories.tsx",
+          "hash": "147388641724506550",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/PieChart.tsx",
+          "hash": "17993947797928989528",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ScatterChart.module.css",
+          "hash": "3053635961910598987"
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ScatterChart.spec.tsx",
+          "hash": "1737165735026731106",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ScatterChart.stories.tsx",
+          "hash": "15981971446062571660",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ScatterChart.tsx",
+          "hash": "16863743370609773346",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ScatterplotMatrixChart.stories.tsx",
+          "hash": "15445906484865030113",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/ScatterplotMatrixChart.tsx",
+          "hash": "18243534547476433459",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/react-echarts.spec.tsx",
+          "hash": "414537364897869796",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/lib/react-echarts.tsx",
+          "hash": "7865195592791263135",
+          "deps": [
+            "npm:react",
+            "npm:echarts-for-react",
+            "npm:echarts"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/src/test-setup.ts",
+          "hash": "4735282403757365809",
+          "deps": [
+            "npm:vitest"
+          ]
+        },
+        {
+          "file": "libs/react-echarts/tsconfig.json",
+          "hash": "6996585143515498368"
+        },
+        {
+          "file": "libs/react-echarts/tsconfig.lib.json",
+          "hash": "17237518800784084212"
+        },
+        {
+          "file": "libs/react-echarts/tsconfig.spec.json",
+          "hash": "16829233919054324066"
+        },
+        {
+          "file": "libs/react-echarts/vite.config.ts",
+          "hash": "10328431957466465318",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:vite-plugin-dts",
+            "npm:@nx/vite"
+          ]
+        }
+      ],
+      "react-graphics-editor": [
+        {
+          "file": "libs/react-graphics-editor/.storybook/main.ts",
+          "hash": "15409138604913628240",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/.storybook/preview.ts",
+          "hash": "2595652306057319755"
+        },
+        {
+          "file": "libs/react-graphics-editor/README.md",
+          "hash": "3557890508187199398"
+        },
+        {
+          "file": "libs/react-graphics-editor/code-editor-migration-spec.md",
+          "hash": "8836025786818667183"
+        },
+        {
+          "file": "libs/react-graphics-editor/eslint.config.mjs",
+          "hash": "3041506319679362645",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/graphics-editor-migration-spec.md",
+          "hash": "12335581094342095451"
+        },
+        {
+          "file": "libs/react-graphics-editor/package.json",
+          "hash": "10195858058213471770",
+          "deps": [
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/project.json",
+          "hash": "10378636397168898091"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/import-test.spec.tsx",
+          "hash": "15976340772125937734",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/index.ts",
+          "hash": "3385972550150946211"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/commands/command-manager.ts",
+          "hash": "6808149399034899744"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/commands/create-shape-command.ts",
+          "hash": "9351529645456025537",
+          "deps": [
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/commands/delete-shape-command.ts",
+          "hash": "10941697119074045746",
+          "deps": [
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/commands/graphics-command.interface.ts",
+          "hash": "7233123241619743298"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/commands/index.ts",
+          "hash": "7177363456650819729"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/commands/update-property-command.ts",
+          "hash": "7641863782531603346",
+          "deps": [
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/react-graphics-editor.module.css",
+          "hash": "5659671260744284493"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/react-graphics-editor.stories.tsx",
+          "hash": "10517316933865284906",
+          "deps": [
+            "npm:@storybook/react"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/react-graphics-editor.tsx",
+          "hash": "14185323494558855633",
+          "deps": [
+            "npm:react",
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/services/graphics-editor.service.ts",
+          "hash": "17755693188229367350",
+          "deps": [
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/services/index.ts",
+          "hash": "7372099138362399368"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/utils/file-utils.ts",
+          "hash": "14830219267693383343"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/utils/index.ts",
+          "hash": "2751948447628096618"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.module.css",
+          "hash": "9154770255994845314"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx",
+          "hash": "3683721715029317419",
+          "deps": [
+            "npm:react",
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/lib/widget-panel/index.ts",
+          "hash": "1216454649797713017"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/paper-test.js",
+          "hash": "14489111520473474295",
+          "deps": [
+            "npm:paper"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/src/simple-test.spec.ts",
+          "hash": "8517384329281654821"
+        },
+        {
+          "file": "libs/react-graphics-editor/src/test-setup.ts",
+          "hash": "16950276136130713280",
+          "deps": [
+            "npm:vitest",
+            "npm:@testing-library/react",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/react-graphics-editor/test.html",
+          "hash": "7242638579011560586"
+        },
+        {
+          "file": "libs/react-graphics-editor/tsconfig.json",
+          "hash": "2017062275602428773"
+        },
+        {
+          "file": "libs/react-graphics-editor/tsconfig.lib.json",
+          "hash": "907691985479297645"
+        },
+        {
+          "file": "libs/react-graphics-editor/tsconfig.spec.json",
+          "hash": "7277455390741021771"
+        },
+        {
+          "file": "libs/react-graphics-editor/vite.config.ts",
+          "hash": "2930857756447952474",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:vite-plugin-dts",
+            "npm:@nx/vite"
+          ]
+        }
+      ],
+      "react-media-player": [
+        {
+          "file": "libs/react-media-player/.babelrc",
+          "hash": "2946678488919325452"
+        },
+        {
+          "file": "libs/react-media-player/.storybook/main.ts",
+          "hash": "1511229156708478156",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-media-player/.storybook/preview.ts",
+          "hash": "2595652306057319755"
+        },
+        {
+          "file": "libs/react-media-player/README.md",
+          "hash": "14334032735439879966"
+        },
+        {
+          "file": "libs/react-media-player/eslint.config.mjs",
+          "hash": "8789163670399984295",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/react-media-player/media-player-migration-spec.md",
+          "hash": "11582153941407949165"
+        },
+        {
+          "file": "libs/react-media-player/package.json",
+          "hash": "13403363464342008772",
+          "deps": [
+            "npm:shaka-player"
+          ]
+        },
+        {
+          "file": "libs/react-media-player/project.json",
+          "hash": "10546883598196209820"
+        },
+        {
+          "file": "libs/react-media-player/src/index.ts",
+          "hash": "10966726481768984972"
+        },
+        {
+          "file": "libs/react-media-player/src/lib/MediaPlayer.module.css",
+          "hash": "14599385649747522736"
+        },
+        {
+          "file": "libs/react-media-player/src/lib/MediaPlayer.spec.tsx",
+          "hash": "801774807627793771",
+          "deps": [
+            "npm:@testing-library/react",
+            "npm:vitest",
+            "npm:@testing-library/jest-dom"
+          ]
+        },
+        {
+          "file": "libs/react-media-player/src/lib/MediaPlayer.stories.tsx",
+          "hash": "18344082842996596393",
+          "deps": [
+            "npm:@storybook/react"
+          ]
+        },
+        {
+          "file": "libs/react-media-player/src/lib/MediaPlayer.tsx",
+          "hash": "6112363474469305019",
+          "deps": [
+            "npm:react",
+            "npm:react-i18next",
+            [
+              "npm:shaka-player",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "libs/react-media-player/src/lib/MediaPlayerErrorBoundary.tsx",
+          "hash": "1336205453123601632",
+          "deps": [
+            "npm:react",
+            "npm:react-i18next"
+          ]
+        },
+        {
+          "file": "libs/react-media-player/src/lib/i18n.ts",
+          "hash": "12881125762086583906",
+          "deps": [
+            "npm:i18next",
+            "npm:react-i18next"
+          ]
+        },
+        {
+          "file": "libs/react-media-player/tsconfig.json",
+          "hash": "14528945766524434024"
+        },
+        {
+          "file": "libs/react-media-player/tsconfig.lib.json",
+          "hash": "9629137276968436937"
+        },
+        {
+          "file": "libs/react-media-player/tsconfig.spec.json",
+          "hash": "7277455390741021771"
+        },
+        {
+          "file": "libs/react-media-player/vite.config.ts",
+          "hash": "5882777570021014484",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:vite-plugin-dts",
+            "npm:@nx/vite"
+          ]
+        }
+      ],
+      "react-code-editor": [
+        {
+          "file": "libs/react-code-editor/.babelrc",
+          "hash": "2946678488919325452"
+        },
+        {
+          "file": "libs/react-code-editor/.storybook/main.ts",
+          "hash": "15409138604913628240",
+          "deps": [
+            "npm:@storybook/react-vite"
+          ]
+        },
+        {
+          "file": "libs/react-code-editor/.storybook/preview.ts",
+          "hash": "2595652306057319755"
+        },
+        {
+          "file": "libs/react-code-editor/README.md",
+          "hash": "3557890508187199398"
+        },
+        {
+          "file": "libs/react-code-editor/code-editor-migration-spec.md",
+          "hash": "8836025786818667183"
+        },
+        {
+          "file": "libs/react-code-editor/eslint.config.mjs",
+          "hash": "3041506319679362645",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/react-code-editor/package.json",
+          "hash": "8500815964965561693",
+          "deps": [
+            "npm:@codemirror/lang-python",
+            "npm:@codemirror/theme-one-dark",
+            "npm:@uiw/react-codemirror"
+          ]
+        },
+        {
+          "file": "libs/react-code-editor/project.json",
+          "hash": "7696979834949108704"
+        },
+        {
+          "file": "libs/react-code-editor/src/index.ts",
+          "hash": "8368419992504384450"
+        },
+        {
+          "file": "libs/react-code-editor/src/lib/react-code-editor.module.css",
+          "hash": "18324762055368404861"
+        },
+        {
+          "file": "libs/react-code-editor/src/lib/react-code-editor.spec.tsx",
+          "hash": "16802183281716994558"
+        },
+        {
+          "file": "libs/react-code-editor/src/lib/react-code-editor.stories.tsx",
+          "hash": "18422518435766189818",
+          "deps": [
+            "npm:@storybook/react"
+          ]
+        },
+        {
+          "file": "libs/react-code-editor/src/lib/react-code-editor.tsx",
+          "hash": "6733109918728299966",
+          "deps": [
+            "npm:react",
+            "npm:@uiw/react-codemirror",
+            "npm:@codemirror/lang-python",
+            "npm:@codemirror/theme-one-dark"
+          ]
+        },
+        {
+          "file": "libs/react-code-editor/src/test-setup.ts",
+          "hash": "2715430431255730506",
+          "deps": [
+            "npm:vitest",
+            "npm:@testing-library/react",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "libs/react-code-editor/tsconfig.json",
+          "hash": "2017062275602428773"
+        },
+        {
+          "file": "libs/react-code-editor/tsconfig.lib.json",
+          "hash": "907691985479297645"
+        },
+        {
+          "file": "libs/react-code-editor/tsconfig.spec.json",
+          "hash": "7277455390741021771"
+        },
+        {
+          "file": "libs/react-code-editor/vite.config.ts",
+          "hash": "5660726673512670170",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:vite-plugin-dts",
+            "npm:@nx/vite"
+          ]
+        }
+      ],
+      "@eddie-workspace/source": [
+        {
+          "file": ".editorconfig",
+          "hash": "5443105041930014821"
+        },
+        {
+          "file": ".gemini/settings.json",
+          "hash": "5921792102792576356"
+        },
+        {
+          "file": ".github/workflows/deploy-storybooks.yml",
+          "hash": "15011965610855561263"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "7629862379414447251"
+        },
+        {
+          "file": ".prettierignore",
+          "hash": "14688272390704683536"
+        },
+        {
+          "file": ".prettierrc",
+          "hash": "16267754514737964994"
+        },
+        {
+          "file": ".vscode/extensions.json",
+          "hash": "16884713733442577066"
+        },
+        {
+          "file": "AGENTS.md",
+          "hash": "5706578983456977230"
+        },
+        {
+          "file": "LICENSE",
+          "hash": "2721121246789839530"
+        },
+        {
+          "file": "README.md",
+          "hash": "12488513646109629312"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "hash": "5115457177730339720",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "index.html",
+          "hash": "16023524189048731608"
+        },
+        {
+          "file": "nx.json",
+          "hash": "2469786500948483003"
+        },
+        {
+          "file": "package.json",
+          "hash": "4334868031940058004",
+          "deps": [
+            "npm:@babel/core",
+            "npm:@babel/preset-react",
+            "npm:@eslint/js",
+            "npm:@nx/eslint",
+            "npm:@nx/eslint-plugin",
+            "npm:@nx/js",
+            "npm:@nx/react",
+            "npm:@nx/storybook",
+            "npm:@nx/vite",
+            "npm:@nx/web",
+            "npm:@nx/workspace",
+            "npm:@storybook/react",
+            "npm:@storybook/react-vite",
+            "npm:@swc-node/register",
+            "npm:@swc/core",
+            "npm:@swc/helpers",
+            "npm:@testing-library/dom",
+            "npm:@testing-library/jest-dom",
+            "npm:@testing-library/react",
+            "npm:@types/node",
+            "npm:@types/react",
+            "npm:@types/react-dom",
+            "npm:@vitejs/plugin-react",
+            "npm:@vitest/coverage-v8",
+            "npm:@vitest/ui",
+            "npm:eslint",
+            "npm:eslint-config-prettier",
+            "npm:eslint-plugin-import",
+            "npm:eslint-plugin-jsx-a11y",
+            "npm:eslint-plugin-react",
+            "npm:eslint-plugin-react-hooks",
+            "npm:eslint-plugin-storybook",
+            "npm:jiti",
+            "npm:jsdom",
+            "npm:nx",
+            "npm:prettier",
+            "npm:storybook",
+            "npm:tslib",
+            "npm:typescript",
+            "npm:typescript-eslint",
+            "npm:vite",
+            "npm:vite-plugin-dts",
+            "npm:vitest",
+            "npm:@codemirror/commands",
+            "npm:@codemirror/highlight",
+            "npm:@codemirror/lang-python",
+            "npm:@codemirror/language",
+            "npm:@codemirror/state",
+            "npm:@codemirror/theme-one-dark",
+            "npm:@codemirror/view",
+            "npm:@manufac/echarts-simple-transform",
+            "npm:@types/paper",
+            "npm:@uiw/react-codemirror",
+            "npm:echarts",
+            "npm:echarts-for-react",
+            "npm:i18next",
+            "npm:paper",
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-i18next",
+            "npm:react-icons",
+            "npm:shaka-player"
+          ]
+        },
+        {
+          "file": "pnpm-lock.yaml",
+          "hash": "7600829333467998739"
+        },
+        {
+          "file": "pnpm-workspace.yaml",
+          "hash": "10383962421328105658"
+        },
+        {
+          "file": "tsconfig.base.json",
+          "hash": "7295907180951509784"
+        },
+        {
+          "file": "vitest.workspace.ts",
+          "hash": "4665328684042819579"
+        }
+      ],
+      "@eddie-workspace/react-graphics-editor": [
+        {
+          "file": "libs/.babelrc",
+          "hash": "2946678488919325452"
+        },
+        {
+          "file": "libs/README.md",
+          "hash": "14334032735439879966"
+        },
+        {
+          "file": "libs/eslint.config.mjs",
+          "hash": "6286113312110665026",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "libs/package.json",
+          "hash": "1387559371839501503"
+        },
+        {
+          "file": "libs/tsconfig.json",
+          "hash": "8406337039199911734"
+        },
+        {
+          "file": "libs/tsconfig.lib.json",
+          "hash": "10328436795560872584"
+        },
+        {
+          "file": "libs/tsconfig.spec.json",
+          "hash": "7277455390741021771"
+        },
+        {
+          "file": "libs/vite.config.ts",
+          "hash": "1232181298775257158",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:vite-plugin-dts",
+            "npm:@nx/vite"
+          ]
+        }
+      ]
+    }
+  },
+  "externalNodesHash": "11890426413086156744"
+}

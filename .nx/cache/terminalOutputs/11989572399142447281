@@ -1,0 +1,109 @@
+
+Linting "react-graphics-editor"...
+[0m[0m
+[0m[4m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/react-graphics-editor.tsx[24m[0m
+[0m  [2m40:7[22m  [31merror[39m  Error: Calling setState synchronously within an effect can trigger cascading renders[0m
+[0m[0m
+[0mEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:[0m
+[0m* Update external systems with the latest state from React.[0m
+[0m* Subscribe for updates from some external system, calling setState in a callback function when external state changes.[0m
+[0m[0m
+[0mCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).[0m
+[0m[0m
+[0m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/react-graphics-editor.tsx:40:7[0m
+[0m  38 |     if (process.env.NODE_ENV === 'test') {[0m
+[0m  39 |       isPaperInitializedRef.current = true;[0m
+[0m> 40 |       setIsPaperInitialized(true);[0m
+[0m     |       ^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect[0m
+[0m  41 |       return;[0m
+[0m  42 |     }[0m
+[0m  43 |  [2mreact-hooks/set-state-in-effect[22m[0m
+[0m[0m
+[0m[4m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx[24m[0m
+[0m  [2m28:5[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')[0m
+[0m  [2m29:5[22m  [31merror[39m    Error: This value cannot be modified[0m
+[0m[0m
+[0mModifying component props or hook arguments is not allowed. Consider using a local variable instead.[0m
+[0m[0m
+[0m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx:29:5[0m
+[0m  27 |     // Paper.js objects are mutable by design[0m
+[0m  28 |     // eslint-disable-next-line no-param-reassign[0m
+[0m> 29 |     selectedItem.position = newPosition;[0m
+[0m     |     ^^^^^^^^^^^^ `selectedItem` cannot be modified[0m
+[0m  30 |     onPropertyChange(selectedItem, 'position', newPosition);[0m
+[0m  31 |   };[0m
+[0m  32 |                                                         [2mreact-hooks/immutability[22m[0m
+[0m  [2m44:5[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')[0m
+[0m  [2m45:5[22m  [31merror[39m    Error: This value cannot be modified[0m
+[0m[0m
+[0mModifying component props or hook arguments is not allowed. Consider using a local variable instead.[0m
+[0m[0m
+[0m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx:45:5[0m
+[0m  43 |     // Paper.js objects are mutable by design[0m
+[0m  44 |     // eslint-disable-next-line no-param-reassign[0m
+[0m> 45 |     selectedItem.bounds = newBounds;[0m
+[0m     |     ^^^^^^^^^^^^ `selectedItem` cannot be modified[0m
+[0m  46 |     onPropertyChange(selectedItem, 'bounds', newBounds);[0m
+[0m  47 |   };[0m
+[0m  48 |                                                                 [2mreact-hooks/immutability[22m[0m
+[0m  [2m55:7[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')[0m
+[0m  [2m56:7[22m  [31merror[39m    Error: This value cannot be modified[0m
+[0m[0m
+[0mModifying component props or hook arguments is not allowed. Consider using a local variable instead.[0m
+[0m[0m
+[0m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx:56:7[0m
+[0m  54 |       // Paper.js objects are mutable by design[0m
+[0m  55 |       // eslint-disable-next-line no-param-reassign[0m
+[0m> 56 |       selectedItem.fillColor = paperColor;[0m
+[0m     |       ^^^^^^^^^^^^ `selectedItem` cannot be modified[0m
+[0m  57 |     } else {[0m
+[0m  58 |       // Paper.js objects are mutable by design[0m
+[0m  59 |       // eslint-disable-next-line no-param-reassign  [2mreact-hooks/immutability[22m[0m
+[0m  [2m59:7[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')[0m
+[0m  [2m69:5[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')[0m
+[0m  [2m70:5[22m  [31merror[39m    Error: This value cannot be modified[0m
+[0m[0m
+[0mModifying component props or hook arguments is not allowed. Consider using a local variable instead.[0m
+[0m[0m
+[0m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx:70:5[0m
+[0m  68 |     // Paper.js objects are mutable by design[0m
+[0m  69 |     // eslint-disable-next-line no-param-reassign[0m
+[0m> 70 |     selectedItem.strokeWidth = width;[0m
+[0m     |     ^^^^^^^^^^^^ `selectedItem` cannot be modified[0m
+[0m  71 |     onPropertyChange(selectedItem, 'strokeWidth', width);[0m
+[0m  72 |   };[0m
+[0m  73 |                                                               [2mreact-hooks/immutability[22m[0m
+[0m  [2m78:5[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')[0m
+[0m  [2m79:5[22m  [31merror[39m    Error: This value cannot be modified[0m
+[0m[0m
+[0mModifying component props or hook arguments is not allowed. Consider using a local variable instead.[0m
+[0m[0m
+[0m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx:79:5[0m
+[0m  77 |     // Paper.js objects are mutable by design[0m
+[0m  78 |     // eslint-disable-next-line no-param-reassign[0m
+[0m> 79 |     selectedItem.content = text;[0m
+[0m     |     ^^^^^^^^^^^^ `selectedItem` cannot be modified[0m
+[0m  80 |     onPropertyChange(selectedItem, 'content', text);[0m
+[0m  81 |   };[0m
+[0m  82 |                                                                         [2mreact-hooks/immutability[22m[0m
+[0m  [2m87:5[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'no-param-reassign')[0m
+[0m  [2m88:5[22m  [31merror[39m    Error: This value cannot be modified[0m
+[0m[0m
+[0mModifying component props or hook arguments is not allowed. Consider using a local variable instead.[0m
+[0m[0m
+[0m/Users/eddie/eddie/eddie-workspace/libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx:88:5[0m
+[0m  86 |     // Paper.js objects are mutable by design[0m
+[0m  87 |     // eslint-disable-next-line no-param-reassign[0m
+[0m> 88 |     selectedItem.fontSize = size;[0m
+[0m     |     ^^^^^^^^^^^^ `selectedItem` cannot be modified[0m
+[0m  89 |     onPropertyChange(selectedItem, 'fontSize', size);[0m
+[0m  90 |   };[0m
+[0m  91 |                                                                       [2mreact-hooks/immutability[22m[0m
+[0m[0m
+[0m[31m[1m✖ 14 problems (7 errors, 7 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[31m[1m  0 errors and 7 warnings potentially fixable with the `--fix` option.[22m[39m[0m
+[0m[31m[1m[22m[39m[0m
+✖ 14 problems (7 errors, 7 warnings)
+
+  0 errors and 7 warnings are potentially fixable with the `--fix` option.
+

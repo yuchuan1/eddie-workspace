@@ -1,0 +1,125 @@
+
+[7m[1m[36m NX [39m[22m[27m [1mStorybook builder starting ...[22m
+
+[32minfo[0m[35m[0m => Cleaning outputDir: [36mdist/storybook/libs/react-echarts[39m
+[0m[32minfo[0m[35m[0m => Loading presets
+[0m[32minfo[0m[35m[0m => Building manager..
+[0m[32minfo[0m[35m[0m => Building preview..
+[0m
+[36m[vite:dts][39m [33mYou are building a library that may not need to generate declaration files.[39m
+
+[36mvite v7.2.2 [32mbuilding client environment for production...[36m[39m
+[2K[1Gtransforming (1) [2m../../node_modules/.pnpm/storybook@10.0.7_@testing-library+dom@10.4.1_prettier@3[2K[1Gtransforming (20) [2m../../node_modules/.pnpm/@storybook+react@10.0.7_react-dom@19.2.0_react@19.2.0_[2K[1Gtransforming (45) [2m../../node_modules/.pnpm/storybook@10.0.7_@testing-library+dom@10.4.1_prettier@[2K[1Gtransforming (65) [2m../../node_modules/.pnpm/react@19.2.0/node_modules/react/cjs/react.production.j[2K[1Gtransforming (74) [2msrc/lib/AreaChart.tsx[22m[2K[1Gtransforming (105) [2m../../node_modules/.pnpm/react-dom@19.2.0_react@19.2.0/node_modules/react-dom/[2K[1Gtransforming (126) [2m../../node_modules/.pnpm/echarts@6.0.0/node_modules/echarts/lib/view/Component[2K[1Gtransforming (199) [2m../../node_modules/.pnpm/size-sensor@1.0.2/node_modules/size-sensor/lib/id.js[2K[1Gtransforming (424) [2m../../node_modules/.pnpm/echarts@6.0.0/node_modules/echarts/lib/chart/helper/c[2K[1Gtransforming (425) [2m../../node_modules/.pnpm/echarts@6.0.0/node_modules/echarts/lib/core/task.js[[2K[1Gtransforming (638) [2m../../node_modules/.pnpm/echarts@6.0.0/node_modules/echarts/lib/visual/VisualM[2K[1Gtransforming (652) [2m../../node_modules/.pnpm/echarts@6.0.0/node_modules/echarts/lib/data/helper/da[2K[1G[2K[1G[2K[1G[32m✓[39m 720 modules transformed.
+[2K[1Grendering chunks (1)...[2K[1Grendering chunks (2)...[2K[1Grendering chunks (3)...[2K[1Grendering chunks (4)...[2K[1Grendering chunks (5)...[2K[1Grendering chunks (6)...[2K[1Grendering chunks (7)...[2K[1Grendering chunks (8)...[2K[1Grendering chunks (9)...[2K[1Grendering chunks (10)...[2K[1Grendering chunks (11)...[2K[1Grendering chunks (12)...[2K[1Grendering chunks (13)...[2K[1Grendering chunks (14)...[2K[1Grendering chunks (15)...[2K[1Grendering chunks (16)...[2K[1Grendering chunks (17)...[2K[1G[32m
+[36m[vite:dts][32m Start generate declaration files...[39m
+[96mlibs/react-echarts/src/lib/MarginalPlotChart.stories.tsx[0m:[93m42[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ source: number[][]; }[]' is not assignable to type '{ source: [number, number][]; }[]'.
+  Type '{ source: number[][]; }' is not assignable to type '{ source: [number, number][]; }'.
+    Types of property 'source' are incompatible.
+      Type 'number[][]' is not assignable to type '[number, number][]'.
+        Type 'number[]' is not assignable to type '[number, number]'.
+          Target requires 2 element(s) but source may have fewer.
+
+[7m42[0m       dataset: simpleDataset,
+[7m  [0m [91m      ~~~~~~~[0m
+[96mlibs/react-echarts/src/lib/MarginalPlotChart.stories.tsx[0m:[93m86[0m:[93m49[0m - [91merror[0m[90m TS2322: [0mType '{ source: number[][]; }[]' is not assignable to type '{ source: [number, number][]; }[]'.
+  Type '{ source: number[][]; }' is not assignable to type '{ source: [number, number][]; }'.
+    Types of property 'source' are incompatible.
+      Type 'number[][]' is not assignable to type '[number, number][]'.
+        Type 'number[]' is not assignable to type '[number, number]'.
+          Target requires 2 element(s) but source may have fewer.
+
+[7m86[0m     chartData: { title: 'With Marginal Labels', dataset: simpleDataset },
+[7m  [0m [91m                                                ~~~~~~~[0m
+[96mlibs/react-echarts/src/lib/MarginalPlotChart.stories.tsx[0m:[93m95[0m:[93m46[0m - [91merror[0m[90m TS2322: [0mType '{ source: number[][]; }[]' is not assignable to type '{ source: [number, number][]; }[]'.
+  Type '{ source: number[][]; }' is not assignable to type '{ source: [number, number][]; }'.
+    Types of property 'source' are incompatible.
+      Type 'number[][]' is not assignable to type '[number, number][]'.
+        Type 'number[]' is not assignable to type '[number, number]'.
+          Target requires 2 element(s) but source may have fewer.
+
+[7m95[0m     chartData: { title: 'Density Marginals', dataset: simpleDataset },
+[7m  [0m [91m                                             ~~~~~~~[0m
+[96mlibs/react-echarts/src/lib/MarginalPlotChart.stories.tsx[0m:[93m104[0m:[93m49[0m - [91merror[0m[90m TS2322: [0mType '{ source: number[][]; }[]' is not assignable to type '{ source: [number, number][]; }[]'.
+  Type '{ source: number[][]; }' is not assignable to type '{ source: [number, number][]; }'.
+    Types of property 'source' are incompatible.
+      Type 'number[][]' is not assignable to type '[number, number][]'.
+        Type 'number[]' is not assignable to type '[number, number]'.
+          Target requires 2 element(s) but source may have fewer.
+
+[7m104[0m     chartData: { title: 'Custom Bins & Colors', dataset: simpleDataset },
+[7m   [0m [91m                                                ~~~~~~~[0m
+[96mlibs/react-echarts/src/lib/MarginalPlotChart.stories.tsx[0m:[93m112[0m:[93m47[0m - [91merror[0m[90m TS2322: [0mType '{ source: number[][]; }[]' is not assignable to type '{ source: [number, number][]; }[]'.
+  Type '{ source: number[][]; }' is not assignable to type '{ source: [number, number][]; }'.
+    Types of property 'source' are incompatible.
+      Type 'number[][]' is not assignable to type '[number, number][]'.
+        Type 'number[]' is not assignable to type '[number, number]'.
+          Target requires 2 element(s) but source may have fewer.
+
+[7m112[0m     chartData: { title: 'No Linked Pointers', dataset: simpleDataset },
+[7m   [0m [91m                                              ~~~~~~~[0m
+[96mlibs/react-echarts/src/lib/MarginalPlotChart.stories.tsx[0m:[93m120[0m:[93m33[0m - [91merror[0m[90m TS2322: [0mType '{ source: number[][]; }[]' is not assignable to type '{ source: [number, number][]; }[]'.
+  Type '{ source: number[][]; }' is not assignable to type '{ source: [number, number][]; }'.
+    Types of property 'source' are incompatible.
+      Type 'number[][]' is not assignable to type '[number, number][]'.
+        Type 'number[]' is not assignable to type '[number, number]'.
+          Target requires 2 element(s) but source may have fewer.
+
+[7m120[0m     chartData: { title: 'Tall', dataset: simpleDataset },
+[7m   [0m [91m                                ~~~~~~~[0m
+[96mlibs/react-echarts/src/lib/PieChart.stories.tsx[0m:[93m16[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ text: string; }' is not assignable to type 'string'.
+
+[7m16[0m       title: { text: 'Simple Pie' },
+[7m  [0m [91m      ~~~~~[0m
+[96mlibs/react-echarts/src/lib/PieChart.stories.tsx[0m:[93m34[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ text: string; }' is not assignable to type 'string'.
+
+[7m34[0m       title: { text: 'Pie with Objects' },
+[7m  [0m [91m      ~~~~~[0m
+[96mlibs/react-echarts/src/lib/PieChart.stories.tsx[0m:[93m53[0m:[93m7[0m - [91merror[0m[90m TS2322: [0mType '{ text: string; }' is not assignable to type 'string'.
+
+[7m53[0m       title: { text: 'Large Pie' },
+[7m  [0m [91m      ~~~~~[0m
+[96mlibs/react-echarts/src/lib/PieChart.tsx[0m:[93m33[0m:[93m25[0m - [91merror[0m[90m TS2488: [0mType '[string, number] | { name: string; value: number; }' must have a '[Symbol.iterator]()' method that returns an iterator.
+
+[7m33[0m           ? s.data.map(([name, value]) => ({ name, value }))
+[7m  [0m [91m                        ~~~~~~~~~~~~~[0m
+
+[2K[1Gcomputing gzip size (0)...
+[2mUsers/eddie/eddie/eddie-workspace/dist/storybook/libs/react-echarts/README.md[22m
+
+[2mUsers/eddie/eddie/eddie-workspace/dist/storybook/libs/react-echarts/echarts-migration-spec.md[22m
+[2K[1Gcomputing gzip size (1)...[2K[1Gcomputing gzip size (2)...[2K[1Gcomputing gzip size (3)...[2K[1Gcomputing gzip size (4)...[2K[1Gcomputing gzip size (5)...[2K[1Gcomputing gzip size (6)...[2K[1Gcomputing gzip size (7)...[2K[1Gcomputing gzip size (8)...[2K[1Gcomputing gzip size (9)...[2K[1Gcomputing gzip size (10)...[2K[1Gcomputing gzip size (11)...[2K[1Gcomputing gzip size (12)...[2K[1Gcomputing gzip size (13)...[2K[1Gcomputing gzip size (14)...[2K[1Gcomputing gzip size (15)...[2K[1Gcomputing gzip size (16)...[2K[1Gcomputing gzip size (17)...[2K[1Gcomputing gzip size (18)...[2K[1Gcomputing gzip size (19)...[32m[36m[vite:dts][32m Declaration files built in 1181ms.
+[39m
+[2K[1Gcomputing gzip size (20)...[2K[1Gcomputing gzip size (21)...[2K[1G[2m../../dist/storybook/libs/react-echarts/[22m[32miframe.html                                        [39m[1m[2m   17.96 kB[22m[1m[22m[2m │ gzip:   5.09 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[35mHeatmapChart-CxsyNSeK.css                   [39m[1m[2m    0.18 kB[22m[1m[22m[2m │ gzip:   0.13 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[35mBarChart-DRxnRo3G.css                       [39m[1m[2m    0.18 kB[22m[1m[22m[2m │ gzip:   0.14 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[35mMarginalPlotChart-iPVBIU0N.css              [39m[1m[2m    0.18 kB[22m[1m[22m[2m │ gzip:   0.14 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mpreload-helper-PPVm8Dsz.js                  [39m[1m[2m    1.23 kB[22m[1m[22m[2m │ gzip:   0.72 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mMatrixScatterChart.stories-h3FcmDLl.js      [39m[1m[2m    3.16 kB[22m[1m[22m[2m │ gzip:   1.37 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mPieChart.stories-BW4pZLxe.js                [39m[1m[2m    3.69 kB[22m[1m[22m[2m │ gzip:   1.27 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mParetoChart.stories-AqsmBLip.js             [39m[1m[2m    3.75 kB[22m[1m[22m[2m │ gzip:   1.47 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mBoxPlotChart.stories-LX9nKGtf.js            [39m[1m[2m    3.91 kB[22m[1m[22m[2m │ gzip:   1.38 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mHeatmapChart.stories-B2scBsdR.js            [39m[1m[2m    4.01 kB[22m[1m[22m[2m │ gzip:   1.56 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mAreaChart.stories-1wJRdrXy.js               [39m[1m[2m    4.12 kB[22m[1m[22m[2m │ gzip:   1.43 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mScatterplotMatrixChart.stories-qsSULzmz.js  [39m[1m[2m    5.71 kB[22m[1m[22m[2m │ gzip:   1.93 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mLineChart.stories-CPuMA1zF.js               [39m[1m[2m    5.91 kB[22m[1m[22m[2m │ gzip:   1.94 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mHistogramChart.stories-DPRtmvDC.js          [39m[1m[2m    5.95 kB[22m[1m[22m[2m │ gzip:   1.87 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mScatterChart.stories-DsoWmp2e.js            [39m[1m[2m    6.05 kB[22m[1m[22m[2m │ gzip:   1.70 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mBarChart.stories-DnOEWWax.js                [39m[1m[2m    7.99 kB[22m[1m[22m[2m │ gzip:   2.28 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mMarginalPlotChart.stories-Ppjuo03c.js       [39m[1m[2m    9.07 kB[22m[1m[22m[2m │ gzip:   2.77 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[36mvite-inject-mocker-entry.js                        [39m[1m[2m   28.30 kB[22m[1m[22m[2m │ gzip:   9.78 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mreact-18-BHhV0bTz.js                        [39m[1m[2m  185.12 kB[22m[1m[22m[2m │ gzip:  58.01 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36mindex-CpemsT94.js                           [39m[1m[33m1,138.56 kB[39m[22m[2m │ gzip: 377.48 kB[22m
+[2m../../dist/storybook/libs/react-echarts/[22m[2massets/[22m[36miframe-BRs5tloK.js                          [39m[1m[33m1,149.93 kB[39m[22m[2m │ gzip: 325.96 kB[22m
+[33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[32m✓ built in 5.90s[39m
+[32minfo[0m[35m[0m => Output directory: /Users/eddie/eddie/eddie-workspace/dist/storybook/libs/react-echarts
+[0m
+[7m[1m[36m NX [39m[22m[27m [1mStorybook builder finished ...[22m
+
+
+[7m[1m[36m NX [39m[22m[27m [1mStorybook files available in dist/storybook/libs/react-echarts[22m
+

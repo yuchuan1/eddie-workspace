@@ -1,0 +1,11 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { ReactGraphicsEditor } from './react-graphics-editor';
+declare const meta: Meta<typeof ReactGraphicsEditor>;
+export default meta;
+type Story = StoryObj<typeof ReactGraphicsEditor>;
+export declare const Default: Story;
+export declare const LightTheme: Story;
+export declare const SmallCanvas: Story;
+export declare const LargeCanvas: Story;
+export declare const NoGrid: Story;
+export declare const DarkBackground: Story;

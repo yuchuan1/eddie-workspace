@@ -1,0 +1,28 @@
+[?25l
+[1m[46m RUN [49m[22m [36mv4.0.8 [39m[90m/Users/eddie/eddie/eddie-workspace/libs/react-code-editor[39m
+
+[?2026h
+[1m[33m ❯ [39m[22m[30m[45m react-code-editor [49m[39m src/lib/react-code-editor.spec.tsx[2m [queued][22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m[1m[32m0 passed[39m[22m[90m (0)[39m
+[2m   Start at [22m08:53:04
+[2m   Duration [22m504ms
+[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K
+[1m[33m ❯ [39m[22m[30m[45m react-code-editor [49m[39m src/lib/react-code-editor.spec.tsx[2m 0/2[22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m[1m[32m0 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m08:53:04
+[2m   Duration [22m604ms
+[?2026l[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K [32m✓[39m [30m[45m react-code-editor [49m[39m src/lib/react-code-editor.spec.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+   [32m✓[39m ReactCodeEditor [2m(2)[22m
+     [32m✓[39m should be defined[32m 1[2mms[22m[39m
+     [32m✓[39m should be a function[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 08:53:04
+[2m   Duration [22m 671ms[2m (transform 60ms, setup 0ms, collect 132ms, tests 1ms, environment 427ms, prepare 10ms)[22m
+
+[?25h

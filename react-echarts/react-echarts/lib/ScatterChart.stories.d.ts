@@ -1,0 +1,10 @@
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { default as ScatterChart } from './ScatterChart';
+declare const meta: Meta<typeof ScatterChart>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Simple: Story;
+export declare const MultipleSeries: Story;
+export declare const Categorical: Story;
+export declare const Dense: Story;
+export declare const LargeNumbers: Story;
