@@ -1,0 +1,11 @@
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { default as LineChart } from './LineChart';
+declare const meta: Meta<typeof LineChart>;
+export default meta;
+type Story = StoryObj<typeof meta>;
+export declare const Simple: Story;
+export declare const MultipleSeries: Story;
+export declare const LongXAxis: Story;
+export declare const LargeNumbers: Story;
+export declare const NegativeValues: Story;
+export declare const DensePoints: Story;
