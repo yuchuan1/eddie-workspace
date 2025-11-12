@@ -36,16 +36,24 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Build React ECharts Storybook
-        run: npx nx build-storybook react-echarts --output-dir=dist/storybook/react-echarts
+        run: npx nx build-storybook react-echarts
 
       - name: Build React Code Editor Storybook
-        run: npx nx build-storybook react-code-editor --output-dir=dist/storybook/react-code-editor
+        run: npx nx build-storybook react-code-editor
 
       - name: Build React Graphics Editor Storybook
-        run: npx nx build-storybook react-graphics-editor --output-dir=dist/storybook/react-graphics-editor
+        run: npx nx build-storybook react-graphics-editor
 
       - name: Build React Media Player Storybook
-        run: npx nx build-storybook react-media-player --output-dir=dist/storybook/react-media-player
+        run: npx nx build-storybook react-media-player
+
+      - name: Organize Storybooks for Pages
+        run: |
+          mkdir -p dist/storybook
+          mv dist/storybook/libs/react-echarts dist/storybook/react-echarts
+          mv dist/storybook/libs/react-code-editor dist/storybook/react-code-editor
+          mv dist/storybook/libs/react-graphics-editor dist/storybook/react-graphics-editor
+          mv dist/storybook/libs/react-media-player dist/storybook/react-media-player
 
       - name: Create index.html with navigation
         run: |
