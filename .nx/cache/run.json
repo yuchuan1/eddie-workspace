@@ -1,9 +1,0 @@
-{
-  "run": {
-    "command": "nx storybook react-echarts --build --output-dir dist/storybook/react-echarts",
-    "startTime": "2025-11-12T01:28:59.716Z",
-    "endTime": "2025-11-12T01:45:23.695Z",
-    "inner": false
-  },
-  "tasks": []
-}

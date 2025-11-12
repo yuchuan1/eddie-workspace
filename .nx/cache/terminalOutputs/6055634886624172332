@@ -1,8 +1,0 @@
-> eslint .
-
-[0m[0m
-[0m[4m/Users/eddie/eddie/eddie-workspace/libs/react-echarts/.storybook/main.ts[24m[0m
-[0m  [2m17:42[22m  [33mwarning[39m  Unexpected any. Specify a different type  [2m@typescript-eslint/no-explicit-any[22m[0m
-[0m[0m
-[0m[33m[1m✖ 1 problem (0 errors, 1 warning)[22m[39m[0m
-[0m[33m[1m[22m[39m[0m
