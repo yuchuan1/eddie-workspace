@@ -1,2 +1,11 @@
-node_modules
-.nx
+# Ignore everything by default
+*
+
+# Allow the files/folders we actually serve
+!.nojekyll
+!index.html
+!404.html
+!react-echarts/**
+!react-code-editor/**
+!react-graphics-editor/**
+!react-media-player/**
