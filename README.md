@@ -74,6 +74,7 @@ A comprehensive media player supporting multiple streaming formats.
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm package manager
 - Nx CLI
@@ -86,7 +87,7 @@ pnpm install
 
 ### Development
 
-#### Running Storybooks
+#### Running Storybooks Locally
 Each library includes interactive Storybook stories for component demonstration:
 
 ```bash
@@ -102,6 +103,14 @@ pnpm run storybook:react-graphics-editor
 # React Media Player
 pnpm run storybook:react-media-player
 ```
+
+#### Storybooks on GitHub Pages
+The Storybooks are automatically deployed to GitHub Pages on every push to the main branch:
+
+- **[📊 React ECharts Storybook](https://yuchuan1.github.io/eddie-workspace/react-echarts/)**
+- **[💻 React Code Editor Storybook](https://yuchuan1.github.io/eddie-workspace/react-code-editor/)**
+- **[🎨 React Graphics Editor Storybook](https://yuchuan1.github.io/eddie-workspace/react-graphics-editor/)**
+- **[🎬 React Media Player Storybook](https://yuchuan1.github.io/eddie-workspace/react-media-player/)**
 
 #### Running Tests
 All libraries include comprehensive test suites:
