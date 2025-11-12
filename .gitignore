@@ -1,10 +1,7 @@
-# Ignore everything by default
 *
-
-# Allow the files/folders we actually serve
-!.nojekyll
 !index.html
 !404.html
+!.nojekyll
 !react-echarts/**
 !react-code-editor/**
 !react-graphics-editor/**
