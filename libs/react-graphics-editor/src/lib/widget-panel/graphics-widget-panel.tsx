@@ -1,95 +1,76 @@
 // libs/react-graphics-editor/src/lib/widget-panel/graphics-widget-panel.tsx
 
 import React from 'react';
-import * as paper from 'paper';
+import paper from 'paper';
 import styles from './graphics-widget-panel.module.css';
 
 export interface GraphicsWidgetPanelProps {
-  selectedItems: paper.Item[];
-  onPropertyChange: (item: paper.Item, property: string, value: unknown) => void;
+  selectedPosition: { x: number; y: number } | null;
+  selectedBounds: { x: number; y: number; width: number; height: number } | null;
+  selectedFillColor: string | null;
+  selectedStrokeColor: string | null;
+  selectedStrokeWidth: number | null;
+  selectedContent: string | null;
+  selectedFontSize: number | null;
+  selectedItemType: string | null;
+  selectedItemCount: number;
+  onPropertyChange: (property: string, value: unknown) => void;
 }
 
 export function GraphicsWidgetPanel({
-  selectedItems,
+  selectedPosition,
+  selectedBounds,
+  selectedFillColor,
+  selectedStrokeColor,
+  selectedStrokeWidth,
+  selectedContent,
+  selectedFontSize,
+  selectedItemType,
+  selectedItemCount,
   onPropertyChange,
 }: GraphicsWidgetPanelProps) {
-  const selectedItem = selectedItems.length === 1 ? selectedItems[0] : null;
-
   const handlePositionChange = (axis: 'x' | 'y', value: number) => {
-    if (!selectedItem) return;
+    if (!selectedPosition) return;
 
-    const newPosition = selectedItem.position.clone();
+    const newPosition = new paper.Point(selectedPosition.x, selectedPosition.y);
     if (axis === 'x') {
       newPosition.x = value;
     } else {
       newPosition.y = value;
     }
-    // Paper.js objects are mutable by design
-    // eslint-disable-next-line no-param-reassign
-    selectedItem.position = newPosition;
-    onPropertyChange(selectedItem, 'position', newPosition);
+    onPropertyChange('position', newPosition);
   };
 
   const handleSizeChange = (axis: 'width' | 'height', value: number) => {
-    if (!selectedItem || !(selectedItem instanceof paper.Path.Rectangle)) return;
+    if (!selectedBounds) return;
 
-    const bounds = selectedItem.bounds;
     const newBounds = new paper.Rectangle(
-      bounds.x,
-      bounds.y,
-      axis === 'width' ? value : bounds.width,
-      axis === 'height' ? value : bounds.height
+      selectedBounds.x,
+      selectedBounds.y,
+      axis === 'width' ? value : selectedBounds.width,
+      axis === 'height' ? value : selectedBounds.height
     );
-    // Paper.js objects are mutable by design
-    // eslint-disable-next-line no-param-reassign
-    selectedItem.bounds = newBounds;
-    onPropertyChange(selectedItem, 'bounds', newBounds);
+    onPropertyChange('bounds', newBounds);
   };
 
   const handleColorChange = (colorType: 'fill' | 'stroke', color: string) => {
-    if (!selectedItem) return;
-
     const paperColor = new paper.Color(color);
-    if (colorType === 'fill') {
-      // Paper.js objects are mutable by design
-      // eslint-disable-next-line no-param-reassign
-      selectedItem.fillColor = paperColor;
-    } else {
-      // Paper.js objects are mutable by design
-      // eslint-disable-next-line no-param-reassign
-      selectedItem.strokeColor = paperColor;
-    }
-    onPropertyChange(selectedItem, colorType + 'Color', paperColor);
+    onPropertyChange(colorType + 'Color', paperColor);
   };
 
   const handleStrokeWidthChange = (width: number) => {
-    if (!selectedItem) return;
-
-    // Paper.js objects are mutable by design
-    // eslint-disable-next-line no-param-reassign
-    selectedItem.strokeWidth = width;
-    onPropertyChange(selectedItem, 'strokeWidth', width);
+    onPropertyChange('strokeWidth', width);
   };
 
   const handleTextChange = (text: string) => {
-    if (!selectedItem || !(selectedItem instanceof paper.PointText)) return;
-
-    // Paper.js objects are mutable by design
-    // eslint-disable-next-line no-param-reassign
-    selectedItem.content = text;
-    onPropertyChange(selectedItem, 'content', text);
+    onPropertyChange('content', text);
   };
 
   const handleFontSizeChange = (size: number) => {
-    if (!selectedItem || !(selectedItem instanceof paper.PointText)) return;
-
-    // Paper.js objects are mutable by design
-    // eslint-disable-next-line no-param-reassign
-    selectedItem.fontSize = size;
-    onPropertyChange(selectedItem, 'fontSize', size);
+    onPropertyChange('fontSize', size);
   };
 
-  if (selectedItems.length === 0) {
+  if (selectedItemCount === 0) {
     return (
       <div className={styles['widget-panel']}>
         <div className={styles['panel-header']}>
@@ -104,7 +85,7 @@ export function GraphicsWidgetPanel({
     );
   }
 
-  if (selectedItems.length > 1) {
+  if (selectedItemCount > 1) {
     return (
       <div className={styles['widget-panel']}>
         <div className={styles['panel-header']}>
@@ -112,7 +93,7 @@ export function GraphicsWidgetPanel({
         </div>
         <div className={styles['panel-content']}>
           <p className={styles['multi-selection']}>
-            {selectedItems.length} items selected
+            {selectedItemCount} items selected
           </p>
           <div className={styles['property-group']}>
             <label className={styles['property-label']}>Actions:</label>
@@ -120,9 +101,9 @@ export function GraphicsWidgetPanel({
               type="button"
               className={styles['action-button']}
               onClick={() => {
-                // Group selected items
-                const group = new paper.Group(selectedItems);
-                onPropertyChange(group, 'grouped', true);
+                // TODO: Implement grouping logic
+                console.log('Grouping items');
+                onPropertyChange('grouped', true);
               }}
             >
               Group Items
@@ -138,9 +119,9 @@ export function GraphicsWidgetPanel({
       <div className={styles['panel-header']}>
         <h3>Properties</h3>
         <span className={styles['element-type']}>
-          {selectedItem instanceof paper.Path.Rectangle ? 'Rectangle' :
-           selectedItem instanceof paper.Path.Circle ? 'Circle' :
-           selectedItem instanceof paper.PointText ? 'Text' :
+          {selectedItemType === 'rectangle' ? 'Rectangle' :
+           selectedItemType === 'circle' ? 'Circle' :
+           selectedItemType === 'text' ? 'Text' :
            'Shape'}
         </span>
       </div>
@@ -155,8 +136,13 @@ export function GraphicsWidgetPanel({
               id="pos-x"
               type="number"
               className={styles['property-input']}
-              value={Math.round(selectedItem.position.x)}
+              value={Math.round(selectedPosition?.x || 0)}
               onChange={(e) => handlePositionChange('x', parseFloat(e.target.value) || 0)}
+              autoComplete="off"
+              data-lpignore="true"
+              inputMode="numeric"
+              autoCorrect="off"
+              autoCapitalize="off"
             />
           </div>
           <div className={styles['property-row']}>
@@ -165,14 +151,19 @@ export function GraphicsWidgetPanel({
               id="pos-y"
               type="number"
               className={styles['property-input']}
-              value={Math.round(selectedItem.position.y)}
+              value={Math.round(selectedPosition?.y || 0)}
               onChange={(e) => handlePositionChange('y', parseFloat(e.target.value) || 0)}
+              autoComplete="off"
+              data-lpignore="true"
+              inputMode="numeric"
+              autoCorrect="off"
+              autoCapitalize="off"
             />
           </div>
         </div>
 
         {/* Size Properties (for rectangles) */}
-        {selectedItem instanceof paper.Path.Rectangle && (
+        {selectedItemType === 'rectangle' && (
           <div className={styles['property-group']}>
             <h4 className={styles['group-title']}>Size</h4>
             <div className={styles['property-row']}>
@@ -181,8 +172,13 @@ export function GraphicsWidgetPanel({
                 id="rect-width"
                 type="number"
                 className={styles['property-input']}
-                value={Math.round(selectedItem.bounds.width)}
+                value={Math.round(selectedBounds?.width || 0)}
                 onChange={(e) => handleSizeChange('width', parseFloat(e.target.value) || 0)}
+                autoComplete="off"
+                data-lpignore="true"
+                inputMode="numeric"
+                autoCorrect="off"
+                autoCapitalize="off"
               />
             </div>
             <div className={styles['property-row']}>
@@ -191,8 +187,13 @@ export function GraphicsWidgetPanel({
                 id="rect-height"
                 type="number"
                 className={styles['property-input']}
-                value={Math.round(selectedItem.bounds.height)}
+                value={Math.round(selectedBounds?.height || 0)}
                 onChange={(e) => handleSizeChange('height', parseFloat(e.target.value) || 0)}
+                autoComplete="off"
+                data-lpignore="true"
+                inputMode="numeric"
+                autoCorrect="off"
+                autoCapitalize="off"
               />
             </div>
           </div>
@@ -207,8 +208,10 @@ export function GraphicsWidgetPanel({
               id="fill-color"
               type="color"
               className={styles['property-input']}
-              value={selectedItem.fillColor?.toCSS(true) || '#ffffff'}
+              value={selectedFillColor || '#ffffff'}
               onChange={(e) => handleColorChange('fill', e.target.value)}
+              autoComplete="off"
+              data-lpignore="true"
             />
           </div>
           <div className={styles['property-row']}>
@@ -217,8 +220,10 @@ export function GraphicsWidgetPanel({
               id="stroke-color"
               type="color"
               className={styles['property-input']}
-              value={selectedItem.strokeColor?.toCSS(true) || '#000000'}
+              value={selectedStrokeColor || '#000000'}
               onChange={(e) => handleColorChange('stroke', e.target.value)}
+              autoComplete="off"
+              data-lpignore="true"
             />
           </div>
           <div className={styles['property-row']}>
@@ -229,14 +234,19 @@ export function GraphicsWidgetPanel({
               className={styles['property-input']}
               min="0"
               max="20"
-              value={selectedItem.strokeWidth || 1}
+              value={selectedStrokeWidth || 1}
               onChange={(e) => handleStrokeWidthChange(parseFloat(e.target.value) || 1)}
+              autoComplete="off"
+              data-lpignore="true"
+              inputMode="numeric"
+              autoCorrect="off"
+              autoCapitalize="off"
             />
           </div>
         </div>
 
         {/* Text Properties (for text elements) */}
-        {selectedItem instanceof paper.PointText && (
+        {selectedItemType === 'text' && (
           <div className={styles['property-group']}>
             <h4 className={styles['group-title']}>Text</h4>
             <div className={styles['property-row']}>
@@ -245,8 +255,14 @@ export function GraphicsWidgetPanel({
                 id="text-content"
                 type="text"
                 className={styles['property-input']}
-                value={selectedItem.content}
+                value={selectedContent || ''}
                 onChange={(e) => handleTextChange(e.target.value)}
+                autoComplete="off"
+                spellCheck="false"
+                data-lpignore="true"
+                inputMode="text"
+                autoCorrect="off"
+                autoCapitalize="off"
               />
             </div>
             <div className={styles['property-row']}>
@@ -257,8 +273,13 @@ export function GraphicsWidgetPanel({
                 className={styles['property-input']}
                 min="8"
                 max="72"
-                value={selectedItem.fontSize}
+                value={selectedFontSize || 16}
                 onChange={(e) => handleFontSizeChange(parseFloat(e.target.value) || 16)}
+                autoComplete="off"
+                data-lpignore="true"
+                inputMode="numeric"
+                autoCorrect="off"
+                autoCapitalize="off"
               />
             </div>
           </div>

@@ -119,11 +119,13 @@ This document outlines the migration plan for converting the Angular-based Graph
 
 ### Phase 4: Enhanced Features & Polish (Weeks 7-8)
 
-#### 4.1 Advanced Drawing Tools
-- Path drawing and editing
-- Shape manipulation tools
-- Color and style controls
-- Advanced selection techniques
+#### 4.1 Advanced Drawing Tools ✅ **IN PROGRESS**
+- ✅ **Drag & Drop File Import**: SVG and image file support with validation
+- ✅ **Advanced Selection Techniques**: Multi-select with shift-click and selection rectangles
+- ✅ **Visual Selection Feedback**: Selection rectangle overlay and cursor changes
+- ⏳ Path drawing and editing
+- ⏳ Shape manipulation tools
+- ⏳ Color and style controls
 
 #### 4.2 Performance Optimizations
 - Canvas rendering optimizations

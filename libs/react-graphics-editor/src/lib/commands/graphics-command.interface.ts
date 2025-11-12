@@ -6,6 +6,8 @@ export interface IGraphicsCommand {
   getDescription(): string;
 }
 
+export type { IGraphicsCommand };
+
 export abstract class GraphicsCommand implements IGraphicsCommand {
   protected description: string;
 

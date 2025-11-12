@@ -1,6 +1,6 @@
 // libs/react-graphics-editor/src/lib/services/graphics-editor.service.ts
 
-import * as paper from 'paper';
+import paper from 'paper';
 import { CommandManager } from '../commands';
 
 export interface CanvasOptions {
@@ -23,6 +23,8 @@ export class GraphicsEditorService {
   private options: CanvasOptions;
   private onSelectionChange?: (selection: SelectionInfo) => void;
   private onCanvasUpdate?: () => void;
+  private updateTimeoutId: number | null = null;
+  private readonly UPDATE_DEBOUNCE_MS = 16; // ~60fps
 
   constructor(options: CanvasOptions) {
     this.options = options;
@@ -246,6 +248,18 @@ export class GraphicsEditorService {
 
   // Canvas Operations
   updateCanvas(): void {
+    // Debounce canvas updates to prevent excessive redraws
+    if (this.updateTimeoutId !== null) {
+      window.clearTimeout(this.updateTimeoutId);
+    }
+
+    this.updateTimeoutId = window.setTimeout(() => {
+      this.performCanvasUpdate();
+      this.updateTimeoutId = null;
+    }, this.UPDATE_DEBOUNCE_MS);
+  }
+
+  private performCanvasUpdate(): void {
     paper.view.update();
     if (this.onCanvasUpdate) {
       this.onCanvasUpdate();
@@ -296,8 +310,50 @@ export class GraphicsEditorService {
     );
   }
 
+  updateSelectedItemPosition(position: paper.Point): void {
+    if (this.selectedItems.length === 1) {
+      this.updateItemPosition(this.selectedItems[0], position);
+    }
+  }
+
+  updateSelectedItemSize(bounds: paper.Rectangle): void {
+    if (this.selectedItems.length === 1) {
+      this.updateItemSize(this.selectedItems[0], bounds);
+    }
+  }
+
+  updateSelectedItemColor(colorType: 'fill' | 'stroke', color: paper.Color): void {
+    if (this.selectedItems.length === 1) {
+      this.updateItemColor(this.selectedItems[0], colorType, color);
+    }
+  }
+
+  updateSelectedItemStrokeWidth(width: number): void {
+    if (this.selectedItems.length === 1) {
+      this.updateItemStrokeWidth(this.selectedItems[0], width);
+    }
+  }
+
+  updateSelectedItemContent(content: string): void {
+    if (this.selectedItems.length === 1) {
+      this.updateTextContent(this.selectedItems[0], content);
+    }
+  }
+
+  updateSelectedItemFontSize(size: number): void {
+    if (this.selectedItems.length === 1) {
+      this.updateTextFontSize(this.selectedItems[0], size);
+    }
+  }
+
   // Cleanup
   destroy(): void {
+    // Clear any pending update timeout
+    if (this.updateTimeoutId !== null) {
+      window.clearTimeout(this.updateTimeoutId);
+      this.updateTimeoutId = null;
+    }
+
     if (paper.project) {
       paper.project.clear();
     }

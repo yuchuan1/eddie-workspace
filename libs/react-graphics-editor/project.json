@@ -6,6 +6,13 @@
   "tags": ["scope:shared", "type:feature"],
   "// targets": "to see all targets run: nx show project react-graphics-editor --web",
   "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "config": "libs/react-graphics-editor/vite.config.ts"
+      }
+    },
     "test": {
       "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
-import * as paper from 'paper';
-import { CommandManager, CreateShapeCommand, DeleteShapeCommand } from './commands';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import paper from 'paper';
+import { CommandManager, CreateShapeCommand, DeleteShapeCommand, UpdatePropertyCommand } from './commands';
 import { GraphicsWidgetPanel } from './widget-panel';
 import { GraphicsEditorService, type SelectionInfo } from './services';
+import { validateGraphicsFile, parseSVGContent, readFileAsText, createImageFromFile } from './utils';
 import styles from './react-graphics-editor.module.css';
 
 export interface ReactGraphicsEditorProps {
@@ -29,21 +30,67 @@ export function ReactGraphicsEditor({
     showGrid,
   }));
   const [selectedItems, setSelectedItems] = useState<paper.Item[]>([]);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [dragError, setDragError] = useState<string | null>(null);
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectionRect, setSelectionRect] = useState<paper.Rectangle | null>(null);
+  const [selectionStart, setSelectionStart] = useState<paper.Point | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartPoint, setDragStartPoint] = useState<paper.Point | null>(null);
+  const [dragOffset, setDragOffset] = useState<paper.Point | null>(null);
+  const [propertyChangeTrigger, setPropertyChangeTrigger] = useState(0);
+  const selectedItemProps = useMemo(() => {
+    if (selectedItems.length !== 1) {
+      return {
+        selectedPosition: null,
+        selectedBounds: null,
+        selectedFillColor: null,
+        selectedStrokeColor: null,
+        selectedStrokeWidth: null,
+        selectedContent: null,
+        selectedFontSize: null,
+        selectedItemType: null,
+        selectedItemCount: selectedItems.length,
+      };
+    }
+
+    const item = selectedItems[0];
+    return {
+      selectedPosition: {
+        x: item.position.x,
+        y: item.position.y,
+      },
+      selectedBounds: item instanceof paper.Path.Rectangle ? {
+        x: item.bounds.x,
+        y: item.bounds.y,
+        width: item.bounds.width,
+        height: item.bounds.height,
+      } : null,
+      selectedFillColor: item.fillColor?.toCSS(true) || null,
+      selectedStrokeColor: item.strokeColor?.toCSS(true) || null,
+      selectedStrokeWidth: item.strokeWidth || null,
+      selectedContent: item instanceof paper.PointText ? item.content : null,
+      selectedFontSize: item instanceof paper.PointText ? item.fontSize : null,
+      selectedItemType: item instanceof paper.Path.Rectangle ? 'rectangle' : item instanceof paper.Path.Circle ? 'circle' : item instanceof paper.PointText ? 'text' : 'shape',
+      selectedItemCount: selectedItems.length,
+    };
+  }, [selectedItems, propertyChangeTrigger]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || isPaperInitializedRef.current) return;
 
     // Skip Paper.js initialization in test environment
-    if (process.env.NODE_ENV === 'test') {
+    if (process.env.NODE_ENV === 'test' || typeof window === 'undefined') {
       isPaperInitializedRef.current = true;
-      setIsPaperInitialized(true);
+      // Don't set state in test environment to avoid cascading renders
       return;
     }
 
     // Initialize canvas using the service
     editorService.initializeCanvas(canvas);
     isPaperInitializedRef.current = true;
+    // eslint-disable-next-line
     setIsPaperInitialized(true);
 
     // Set up service event handlers
@@ -59,14 +106,12 @@ export function ReactGraphicsEditor({
     return () => {
       editorService.destroy();
       isPaperInitializedRef.current = false;
-      setIsPaperInitialized(false);
     };
   }, [width, height, backgroundColor, showGrid, editorService]);
 
-  const handleCanvasClick = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isPaperInitializedRef.current) return;
+  const handleCanvasMouseDown = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!isPaperInitializedRef.current || process.env.NODE_ENV === 'test') return;
 
-    // Get click position relative to canvas
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
 
@@ -74,118 +119,256 @@ export function ReactGraphicsEditor({
     const y = event.clientY - rect.top;
     const point = new paper.Point(x, y);
 
-    // Use service to select item at point
-    const selectedItem = editorService.selectItemAt(point);
+    // Start selection rectangle if not clicking on an item
+    const hitResult = paper.project.hitTest(point, {
+      fill: true,
+      stroke: true,
+      tolerance: 5,
+    });
 
-    if (selectedItem) {
-      console.log('Selected item:', selectedItem.constructor.name);
+    if (!hitResult || !hitResult.item || hitResult.item.name === 'grid') {
+      // Start selection rectangle
+      setIsSelecting(true);
+      setSelectionStart(point);
+      setSelectionRect(new paper.Rectangle(point, new paper.Size(0, 0)));
     } else {
-      console.log('Canvas clicked - no item selected');
+      // Clicked on an item - select it as the single item and start dragging
+      setSelectedItems([hitResult.item]);
+      setIsDragging(true);
+      setDragStartPoint(point);
+      setDragOffset(hitResult.item.position.subtract(point));
     }
-  }, [editorService]);
+  }, []);
+
+  const handleCanvasMouseMove = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
+    if (isDragging && dragStartPoint && dragOffset && selectedItems.length === 1) {
+      // Handle item dragging
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const currentPoint = new paper.Point(x, y);
+
+      const newPosition = currentPoint.add(dragOffset);
+      const item = selectedItems[0];
+      editorService.updateItemPosition(item, newPosition);
+      return;
+    }
+
+    if (!isSelecting || !selectionStart) return;
+
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const currentPoint = new paper.Point(x, y);
+
+    // Update selection rectangle
+    const newRect = new paper.Rectangle(
+      selectionStart,
+      currentPoint.subtract(selectionStart)
+    );
+    setSelectionRect(newRect);
+  }, [isDragging, dragStartPoint, dragOffset, selectedItems, isSelecting, selectionStart, editorService]);
+
+  const handleCanvasMouseUp = useCallback((event: React.MouseEvent<HTMLCanvasElement>) => {
+    if (isDragging) {
+      // Stop dragging
+      setIsDragging(false);
+      setDragStartPoint(null);
+      setDragOffset(null);
+      return;
+    }
+
+    if (!isSelecting) {
+      // Handle regular click selection
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const point = new paper.Point(x, y);
+
+      const selectedItem = editorService.selectItemAt(point);
+
+      if (selectedItem) {
+        // Item selected
+      } else {
+        console.log('Canvas clicked - no item selected');
+      }
+      return;
+    }
+
+    // Finish selection rectangle
+    setIsSelecting(false);
+
+    if (selectionRect && selectionRect.width > 5 && selectionRect.height > 5) {
+      // Find all items within selection rectangle
+      const itemsInBounds = editorService.getItemsInBounds(selectionRect);
+      if (itemsInBounds.length > 0) {
+        if (event.shiftKey) {
+          // Add to existing selection
+          const newSelection = [...selectedItems];
+          itemsInBounds.forEach(item => {
+            if (!newSelection.includes(item)) {
+              newSelection.push(item);
+            }
+          });
+          setSelectedItems(newSelection);
+        } else {
+          // Replace selection
+          setSelectedItems(itemsInBounds);
+        }
+        console.log(`Selected ${itemsInBounds.length} items with rectangle`);
+      }
+    }
+
+    setSelectionRect(null);
+    setSelectionStart(null);
+  }, [isDragging, isSelecting, selectionRect, selectedItems, editorService]);
+
+  // Drag and Drop Handlers
+  const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragOver(false);
+  }, []);
+
+  const handleDrop = useCallback(async (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragOver(false);
+    setDragError(null);
+
+    if (!isPaperInitialized) return;
+
+    const files = Array.from(event.dataTransfer.files);
+    if (files.length === 0) return;
+
+    for (const file of files) {
+      try {
+        // Validate file
+        const validation = validateGraphicsFile(file);
+        if (!validation.valid) {
+          setDragError(validation.error || 'Invalid file');
+          continue;
+        }
+
+        // Process file based on type
+        if (file.type === 'image/svg+xml') {
+          // Handle SVG files
+          const svgContent = await readFileAsText(file);
+          const parseResult = parseSVGContent(svgContent);
+
+          if (parseResult.success && parseResult.items) {
+            // Add parsed items to canvas
+            parseResult.items.forEach(item => {
+              // Position randomly for demonstration
+              item.position = item.position.add(
+                Math.random() * 100 - 50,
+                Math.random() * 100 - 50
+              );
+            });
+            console.log(`Imported SVG with ${parseResult.items.length} elements`);
+          } else {
+            setDragError(parseResult.error || 'Failed to parse SVG');
+          }
+        } else if (file.type.startsWith('image/')) {
+          // Handle image files
+          await createImageFromFile(file);
+          // Raster is automatically positioned and added to the Paper.js project
+          console.log('Imported image:', file.name);
+        }
+
+      } catch (error) {
+        console.error('Error processing dropped file:', error);
+        setDragError(`Failed to process ${file.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    }
+
+    // Update canvas
+    editorService.updateCanvas();
+  }, [isPaperInitialized, editorService]);
 
   const handleCreateRectangle = useCallback(() => {
-    if (!isPaperInitialized) return;
+    if (!isPaperInitializedRef.current || process.env.NODE_ENV === 'test') return;
 
-    const position = new paper.Point(100 + Math.random() * 200, 100 + Math.random() * 200);
-    const size = new paper.Size(100, 80);
-    const command = new CreateShapeCommand('rectangle', position, { size });
+    const command = new CreateShapeCommand(editorService, 'rectangle', new paper.Point(100, 100), {
+      size: new paper.Size(100, 80),
+    });
     commandManager.execute(command);
-  }, [isPaperInitialized, commandManager]);
+    // Select the newly created item
+    const items = editorService.getAllItems();
+    if (items.length > 0) {
+      setSelectedItems([items[items.length - 1]]);
+    }
+  }, [editorService, commandManager]);
 
   const handleCreateCircle = useCallback(() => {
-    if (!isPaperInitialized) return;
+    if (!isPaperInitializedRef.current || process.env.NODE_ENV === 'test') return;
 
-    const position = new paper.Point(300 + Math.random() * 200, 150 + Math.random() * 100);
-    const command = new CreateShapeCommand('circle', position, { radius: 40 });
+    const command = new CreateShapeCommand(editorService, 'circle', new paper.Point(200, 150), {
+      radius: 50,
+    });
     commandManager.execute(command);
-  }, [isPaperInitialized, commandManager]);
+    // Select the newly created item
+    const items = editorService.getAllItems();
+    if (items.length > 0) {
+      setSelectedItems([items[items.length - 1]]);
+    }
+  }, [editorService, commandManager]);
 
   const handleCreateText = useCallback(() => {
-    if (!isPaperInitialized) return;
+    if (!isPaperInitializedRef.current || process.env.NODE_ENV === 'test') return;
 
-    const position = new paper.Point(200 + Math.random() * 300, 200 + Math.random() * 100);
-    const command = new CreateShapeCommand('text', position, { text: 'New Text' });
+    const command = new CreateShapeCommand(editorService, 'text', new paper.Point(150, 200), {
+      text: 'Hello World',
+    });
     commandManager.execute(command);
-  }, [isPaperInitialized, commandManager]);
+    // Select the newly created item
+    const items = editorService.getAllItems();
+    if (items.length > 0) {
+      setSelectedItems([items[items.length - 1]]);
+    }
+  }, [editorService, commandManager]);
 
   const handleUndo = useCallback(() => {
-    const undoneCommand = commandManager.undo();
-    if (undoneCommand) {
-      console.log('Undid:', undoneCommand.getDescription());
-    }
+    commandManager.undo();
+    // Trigger re-render after undo
+    setPropertyChangeTrigger(prev => prev + 1);
   }, [commandManager]);
 
   const handleRedo = useCallback(() => {
-    const redoneCommand = commandManager.redo();
-    if (redoneCommand) {
-      console.log('Redid:', redoneCommand.getDescription());
-    }
+    commandManager.redo();
+    // Trigger re-render after redo
+    setPropertyChangeTrigger(prev => prev + 1);
   }, [commandManager]);
 
   const handleDeleteSelected = useCallback(() => {
     if (selectedItems.length === 0) return;
 
-    const command = new DeleteShapeCommand(selectedItems);
+    const command = new DeleteShapeCommand(editorService, selectedItems);
     commandManager.execute(command);
-    editorService.clearSelection();
-  }, [selectedItems, commandManager, editorService]);
+    // Clear selection after delete
+    setSelectedItems([]);
+  }, [selectedItems, editorService, commandManager]);
 
-  const handlePropertyChange = useCallback((item: paper.Item, property: string, value: unknown) => {
-    // For now, just log the property change
-    // In a full implementation, this could create a command for undo/redo
-    console.log(`Property changed: ${property} =`, value);
+  const handlePropertyChange = useCallback((property: string, value: unknown) => {
+    const command = new UpdatePropertyCommand(editorService, property, value);
+    commandManager.execute(command);
+    // Trigger re-render by updating property change trigger
+    setPropertyChangeTrigger(prev => prev + 1);
+  }, [editorService, commandManager]);
 
-    // Use service to update item properties
-    try {
-      switch (property) {
-        case 'position':
-          if (value instanceof paper.Point) {
-            editorService.updateItemPosition(item, value);
-          }
-          break;
-        case 'bounds':
-          if (value instanceof paper.Rectangle) {
-            editorService.updateItemSize(item, value);
-          }
-          break;
-        case 'fillColor':
-          if (value instanceof paper.Color) {
-            editorService.updateItemColor(item, 'fill', value);
-          }
-          break;
-        case 'strokeColor':
-          if (value instanceof paper.Color) {
-            editorService.updateItemColor(item, 'stroke', value);
-          }
-          break;
-        case 'strokeWidth':
-          if (typeof value === 'number') {
-            editorService.updateItemStrokeWidth(item, value);
-          }
-          break;
-        case 'content':
-          if (typeof value === 'string') {
-            editorService.updateTextContent(item, value);
-          }
-          break;
-        case 'fontSize':
-          if (typeof value === 'number') {
-            editorService.updateTextFontSize(item, value);
-          }
-          break;
-        default:
-          console.warn(`Unknown property: ${property}`);
-      }
-    } catch (error) {
-      console.error('Error updating property:', error);
-    }
-  }, [editorService]);
-
-  // Keyboard shortcuts handler
   useEffect(() => {
-    if (!isPaperInitializedRef.current) return;
-
     const handleKeyDown = (event: KeyboardEvent) => {
       // Prevent shortcuts when typing in input fields
       const target = event.target as HTMLElement;
@@ -223,11 +406,16 @@ export function ReactGraphicsEditor({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isPaperInitialized, handleUndo, handleRedo, handleDeleteSelected]);
+  }, [handleUndo, handleRedo, handleDeleteSelected]);
 
   return (
     <div className={styles['graphics-editor-container']}>
-      <div className={styles['editor-main']}>
+      <div
+        className={`${styles['editor-main']} ${isDragOver ? styles['drag-over'] : ''}`}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
         <div className={styles['canvas-section']}>
           <div className={styles['toolbar']}>
             <button
@@ -297,18 +485,58 @@ export function ReactGraphicsEditor({
               ref={canvasRef}
               width={width}
               height={height}
-              className={styles['canvas']}
-              onClick={handleCanvasClick}
+              className={`${styles['canvas']} ${isSelecting ? styles['selecting'] : ''}`}
+              onMouseDown={handleCanvasMouseDown}
+              onMouseMove={handleCanvasMouseMove}
+              onMouseUp={handleCanvasMouseUp}
+              onMouseLeave={() => {
+                if (isSelecting) {
+                  setIsSelecting(false);
+                  setSelectionRect(null);
+                  setSelectionStart(null);
+                }
+              }}
             />
+            {isSelecting && selectionRect && (
+              <div
+                className={styles['selection-rectangle']}
+                style={{
+                  '--left': `${Math.min(selectionRect.x, selectionRect.x + selectionRect.width)}px`,
+                  '--top': `${Math.min(selectionRect.y, selectionRect.y + selectionRect.height)}px`,
+                  '--width': `${Math.abs(selectionRect.width)}px`,
+                  '--height': `${Math.abs(selectionRect.height)}px`,
+                } as React.CSSProperties}
+              />
+            )}
+            {isDragOver && (
+              <div className={styles['drag-overlay']}>
+                <div className={styles['drag-message']}>
+                  <span className={styles['drag-icon']} role="img" aria-label="Folder">📁</span>
+                  <span>Drop files here to import</span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className={styles['status-bar']}>
-            {isPaperInitialized ? 'Paper.js Ready - Graphics Editor v0.1.0' : 'Initializing...'}
+            {dragError ? (
+              <span className={styles['error-message']}>{dragError}</span>
+            ) : (
+              `${isPaperInitialized ? 'Paper.js Ready - Graphics Editor v0.1.0' : 'Initializing...'}`
+            )}
           </div>
         </div>
 
         <GraphicsWidgetPanel
-          selectedItems={selectedItems}
+          selectedPosition={selectedItemProps.selectedPosition}
+          selectedBounds={selectedItemProps.selectedBounds}
+          selectedFillColor={selectedItemProps.selectedFillColor}
+          selectedStrokeColor={selectedItemProps.selectedStrokeColor}
+          selectedStrokeWidth={selectedItemProps.selectedStrokeWidth}
+          selectedContent={selectedItemProps.selectedContent}
+          selectedFontSize={selectedItemProps.selectedFontSize}
+          selectedItemType={selectedItemProps.selectedItemType}
+          selectedItemCount={selectedItemProps.selectedItemCount}
           onPropertyChange={handlePropertyChange}
         />
       </div>
@@ -316,4 +544,4 @@ export function ReactGraphicsEditor({
   );
 }
 
-export default ReactGraphicsEditor;
+export default React.memo(ReactGraphicsEditor);

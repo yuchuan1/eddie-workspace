@@ -1,9 +1,11 @@
 // libs/react-graphics-editor/src/lib/commands/delete-shape-command.ts
 
-import * as paper from 'paper';
+import paper from 'paper';
 import { GraphicsCommand } from './graphics-command.interface';
+import { GraphicsEditorService } from '../services/graphics-editor.service';
 
 export class DeleteShapeCommand extends GraphicsCommand {
+  private service: GraphicsEditorService;
   private deletedItems: paper.Item[] = [];
   private deletedData: Array<{
     item: paper.Item;
@@ -11,39 +13,22 @@ export class DeleteShapeCommand extends GraphicsCommand {
     parent: paper.Item | paper.Project;
   }> = [];
 
-  constructor(items: paper.Item[]) {
+  constructor(service: GraphicsEditorService, items: paper.Item[]) {
     super(`Delete ${items.length} item(s)`);
+    this.service = service;
     this.deletedItems = [...items];
   }
 
   execute(): void {
-    this.deletedData = [];
-
-    for (const item of this.deletedItems) {
-      // Store the item's data for undo
-      const data = {
-        item: item,
-        index: item.index,
-        parent: item.parent || paper.project,
-      };
-      this.deletedData.push(data);
-
-      // Remove the item
-      item.remove();
-    }
+    this.service.deleteItems(this.deletedItems);
   }
 
   undo(): void {
-    for (const data of this.deletedData) {
-      // Restore the item to its original position
-      if (data.parent instanceof paper.Layer || data.parent instanceof paper.Group) {
-        data.parent.insertChild(data.index, data.item);
-      } else {
-        // If parent was project, add to active layer
-        paper.project.activeLayer.addChild(data.item);
-      }
+    // For undo, we need to restore the items. Since the service's deleteItems
+    // just calls remove() on each item, we need to re-add them to the project.
+    for (const item of this.deletedItems) {
+      // Re-add to the active layer
+      paper.project.activeLayer.addChild(item);
     }
-
-    this.deletedData = [];
   }
 }
