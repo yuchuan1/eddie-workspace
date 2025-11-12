@@ -22,7 +22,7 @@
 - **✅ Testing**: Automated test suite with 6 comprehensive tests
 - **✅ Documentation**: Storybook integration with 5 interactive stories
 
-This document outlines a phased approach to migrate the media player functionality from the existing Angular-based media player library (@[/Users/eddie/iabg/holmes/libs/media-player]) to a new React library in the NX workspace at @[/Users/eddie/eddie/eddie-workspace]. The migration focuses on React 19.2 and includes setting up Storybook, Vitest tests, and ensuring lint compliance. Steps are based on modern NX and React best practices.
+This document outlines a phased approach to migrate the media player functionality from an existing internal Angular-based media player library to a new React library in this Nx workspace. The migration focuses on React 19.2 and includes setting up Storybook, Vitest tests, and ensuring lint compliance. Steps are based on modern Nx and React best practices.
 
 ## Step 1: Pre-Migration Audit and Dependency Setup
 
@@ -45,7 +45,7 @@ This document outlines a phased approach to migrate the media player functionali
 ## Step 3: Migrate Media Player Component from Angular Library
 
 - **Phased Approach**: Focus on core video playback functionality first (MP4 support), then add advanced features like HLS/DASH streaming, DRM, and debug overlay.
-- Source Files: Reference specific files from `/Users/eddie/iabg/holmes/libs/media-player/src/lib/media-player/`.
+- Source Files: Reference the original Angular media player implementation and map to React components as needed.
 - Migration Steps:
   - Create React component (`MediaPlayer.tsx`) and port logic, handling data schemas and dependencies (✅ `shaka-player` already added to package.json).
   - Convert Angular signals to React useState/useEffect hooks.

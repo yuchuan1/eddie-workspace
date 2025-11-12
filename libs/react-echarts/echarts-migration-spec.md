@@ -1,6 +1,6 @@
 # ECharts Migration Specification to React Library
 
-This document outlines a phased approach to migrate the line chart functionality from the existing Angular-based echarts library (@[/Users/eddie/iabg/holmes/libs/echarts]) to a new React library in the NX workspace at @[/Users/eddie/eddie/eddie-workspace]. The migration focuses on React 19.2 and includes setting up Storybook, Jest tests, and ensuring lint compliance. Steps are based on modern NX and React best practices. Note: CI/CD integration is deferred and can be added in a future phase if needed.
+This document outlines a phased approach to migrate the line chart functionality from an existing internal Angular-based ECharts library to a new React library in this Nx workspace. The migration focuses on React 19.2 and includes setting up Storybook, tests, and ensuring lint compliance. Steps are based on modern Nx and React best practices. Note: CI/CD integration is deferred and can be added in a future phase if needed.
 
 ## Step 1: Pre-Migration Audit
 
@@ -15,7 +15,7 @@ This document outlines a phased approach to migrate the line chart functionality
 ## Step 3: Migrate Line Chart from ECharts Library
 
 - **Phased Approach**: Focus on line chart migration initially. Provide examples of adapting Angular code to React, such as using hooks for state and rendering.
-- Source Files: Reference specific files like `/Users/eddie/iabg/holmes/libs/echarts/src/lib/service/line/line-chart.ts`.
+- Source Files: Reference the original Angular line chart implementation and map to React components as needed.
 - Migration Steps:
   - Create a React component (e.g., `LineChart.tsx`) and port logic, handling data schemas and dependencies (e.g., install 'echarts-for-react' or consider D3.js).
   - Address challenges like state management differences with a rollback plan for errors.

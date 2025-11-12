@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the migration plan for converting the Angular-based Holmes Code Editor library to a React library within the Nx workspace. The Angular library is a powerful CodeMirror-based Python code editor with syntax highlighting, execution capabilities, and output management.
+This document outlines the migration plan for converting an Angular-based internal Code Editor library to a React library within the Nx workspace. The Angular library is a powerful CodeMirror-based Python code editor with syntax highlighting, execution capabilities, and output management.
 
 ## Source Analysis
 
